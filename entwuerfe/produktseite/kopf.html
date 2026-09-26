@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kolibri als i-Punkt — Feinabstimmung</title>
+<style>
+  body { margin:0; padding:18px 14px 60px; background:#f8fafc; max-width:560px; margin:0 auto;
+         font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; color:#1f2937; }
+  h2 { font-size:14px; color:#475569; margin:24px 0 8px; }
+  .wrap { position:relative; display:block; width:100%; max-width:480px; }
+  .wrap img.logo { display:block; width:100%; height:auto; }
+  .wrap img.vogel { position:absolute; height:auto; z-index:2; pointer-events:none; }
+
+  /* Das "i" steht bei 63,4 % der Breite, die Buchstaben beginnen bei 31,6 % der Hoehe */
+  .a .vogel { width:4.5%; left:61.2%; top:18%; }
+  .b .vogel { width:4.5%; left:61.2%; top:21%; }
+  .c .vogel { width:5.5%; left:60.7%; top:17%; }
+  .d .vogel { width:4.5%; left:61.2%; top:14%; }
+  .karo { background:
+      linear-gradient(45deg,#e2e8f0 25%,transparent 25%,transparent 75%,#e2e8f0 75%),
+      linear-gradient(45deg,#e2e8f0 25%,transparent 25%,transparent 75%,#e2e8f0 75%);
+      background-size:16px 16px; background-position:0 0,8px 8px; padding:10px; border-radius:10px; }
+</style>
+</head>
+<body>
+
+<h2>a — 4,5 %, oben 18 % (eingestellt)</h2>
+<div class="wrap a"><img class="logo" src="assets/screens/logo-kopf.webp" alt=""><img class="vogel" src="assets/icons/kolibri-marke-88.webp" alt=""></div>
+
+<h2>b — gleich groß, 3 Punkte tiefer</h2>
+<div class="wrap b"><img class="logo" src="assets/screens/logo-kopf.webp" alt=""><img class="vogel" src="assets/icons/kolibri-marke-88.webp" alt=""></div>
+
+<h2>c — etwas größer (5,5 %), einen Punkt höher</h2>
+<div class="wrap c"><img class="logo" src="assets/screens/logo-kopf.webp" alt=""><img class="vogel" src="assets/icons/kolibri-marke-88.webp" alt=""></div>
+
+<h2>d — gleich groß, höher (14 %)</h2>
+<div class="wrap d"><img class="logo" src="assets/screens/logo-kopf.webp" alt=""><img class="vogel" src="assets/icons/kolibri-marke-88.webp" alt=""></div>
+
+<h2>Freistellung der Ecken — auf kariertem Grund</h2>
+<div class="karo">
+  <div class="wrap a"><img class="logo" src="assets/screens/logo-kopf.webp" alt=""><img class="vogel" src="assets/icons/kolibri-marke-88.webp" alt=""></div>
+</div>
+
+</body>
+</html>

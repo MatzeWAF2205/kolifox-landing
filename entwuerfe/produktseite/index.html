@@ -1,0 +1,1104 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KoliFoX — Entwurf Landing-Page</title>
+<meta name="description" content="KoliFoX — Termine, dringende Anfragen und AU-Anfragen zwischen Patient und Praxis. Entwurf.">
+<meta name="theme-color" content="#2f6b4f">
+<link rel="icon" href="assets/icons/logo-icon.svg" type="image/svg+xml">
+<style>
+/* Farbwelt 1:1 aus kolifox.de/assets/style.css uebernommen */
+:root {
+  --brand: #2f6b4f;
+  --brand-dark: #234f3a;
+  --brand-pale: #eef6f0;
+  --brand-soft: #d8ecdf;
+  --mint: #a5cba0;           /* theme_color der App */
+  --ink: #1f2937;
+  --muted: #5b6472;
+  --bg: #fbfbf9;
+  --card: #ffffff;
+  --border: #e6e6e0;
+  --focus: #2563eb;
+  --akut: #b91c1c;
+  --akut-soft: #fee2e2;
+  --radius: 16px;
+  --shadow: 0 1px 2px rgba(16,24,40,.06), 0 8px 24px -12px rgba(16,24,40,.18);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --brand: #6fbf94; --brand-dark: #8fd4ac; --brand-pale: #12261c; --brand-soft: #17352577;
+    --mint: #7fae7a; --ink: #eef1f4; --muted: #9aa4b2; --bg: #0f1216; --card: #171b20;
+    --border: #262b31; --akut: #f87171; --akut-soft: #2a1414;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+  }
+}
+:root[data-theme="dark"] {
+  --brand: #6fbf94; --brand-dark: #8fd4ac; --brand-pale: #12261c; --brand-soft: #17352577;
+  --mint: #7fae7a; --ink: #eef1f4; --muted: #9aa4b2; --bg: #0f1216; --card: #171b20;
+  --border: #262b31; --akut: #f87171; --akut-soft: #2a1414;
+  --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0; background: var(--bg); color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.55; -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; }
+a { color: var(--brand-dark); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.wrap { max-width: 1400px; margin: 0 auto; padding: 0 16px; }
+
+/* ---------- Kopf ---------- */
+.site-head {
+  position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(10px); border-bottom: 1px solid var(--border);
+}
+.head-row { display: flex; align-items: center; gap: 16px; padding: 10px 0; }
+.head-logo { height: 60px; width: auto; display: block; }
+.head-spacer { flex: 1 1 auto; }
+
+/* Ansichts-Umschalter */
+.switch {
+  display: inline-flex; padding: 4px; gap: 4px; background: var(--brand-pale);
+  border: 1px solid var(--border); border-radius: 999px;
+}
+.switch button {
+  appearance: none; border: 0; background: transparent; color: var(--muted);
+  font: inherit; font-weight: 600; padding: 8px 18px; border-radius: 999px; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 7px; white-space: nowrap;
+}
+.switch button[aria-selected="true"] {
+  background: var(--brand); color: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.18);
+}
+.head-cta {
+  display: inline-block; padding: 9px 18px; border-radius: 999px; font-weight: 600;
+  text-decoration: none; background: var(--brand); color: #fff;
+}
+.head-cta.ghost { background: transparent; color: var(--brand-dark); border: 1px solid var(--border); }
+
+/* ---------- Hero ---------- */
+.hero { padding: 56px 0 8px; }
+.hero-split { display: grid; grid-template-columns: 1.15fr .85fr; gap: 48px; align-items: center; }
+.hero-split .hero-text { min-width: 0; }
+
+/* Handy-Gehaeuse: oben breiterer Rand fuer die Hoermuschel */
+.phone {
+  /* 255 statt 300 px — auf Matthias' Wunsch rund 15 % kleiner, damit Text,
+     Handy und Fahnen nebeneinander Platz haben. */
+  justify-self: center; position: relative; width: 255px; max-width: 100%;
+  border-radius: 38px; padding: 29px 9px 19px; box-sizing: content-box;
+  background: linear-gradient(155deg, #3a4048 0%, #22262c 38%, #14171b 100%);
+  box-shadow:
+    0 0 0 2px #0b0d10,                       /* harte Gehaeusekante */
+    inset 0 1px 1px rgba(255,255,255,.22),   /* Lichtkante oben */
+    0 34px 64px -26px rgba(16,24,40,.6), 0 2px 8px rgba(16,24,40,.25);
+}
+/* Hoermuschel-Schlitz */
+.phone::before {
+  content: ""; position: absolute; top: 15px; left: 50%; transform: translateX(-50%);
+  width: 74px; height: 6px; border-radius: 99px; z-index: 4;
+  background: #06080a; box-shadow: inset 0 1px 1px rgba(0,0,0,.9);
+}
+/* Kamera-Punkt neben der Hoermuschel */
+.phone::after {
+  content: ""; position: absolute; top: 14px; left: calc(50% + 52px);
+  width: 8px; height: 8px; border-radius: 50%; z-index: 4;
+  background: radial-gradient(circle at 35% 30%, #2b3a4a, #05070a 70%);
+  box-shadow: 0 0 0 1px rgba(255,255,255,.07);
+}
+.phone > img { display: block; width: 100%; border-radius: 24px; }
+
+/* Der Bildschirm: Matthias' Grundframe, darin der wechselnde Bereich */
+.screen { position: relative; border-radius: 24px; overflow: hidden; line-height: 0; }
+/* Stapelung im Bildschirm, von hinten nach vorn:
+   1 Grundframe (Kopf + Fussleiste), 2 wechselndes Bild, 5 Kolibris.
+   Die Kolibris sitzen an der Fussleiste und muessen immer obenauf liegen. */
+.screen > img.frame { display: block; width: 100%; position: relative; z-index: 1; }
+
+/* Einblend-Bereich — am Grundframe gemessen (600x1129): blau ab x=27, davor ein
+   4 px dunkler Rahmen (x 23..26). Der Bereich liegt bewusst 4 px weiter aussen,
+   damit er diesen Rahmen ueberdeckt. */
+.screen-slot {
+  position: absolute; left: 3.83%; top: 20.82%; width: 91.67%; height: 69.18%;
+  overflow: hidden; background: #fff; border-radius: 3px; z-index: 2;
+}
+.screen-slot img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: top;
+  opacity: 0; transition: opacity .7s ease;
+}
+.screen-slot img.aktiv { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .screen-slot img { transition: none; } }
+
+/* Sprechblase zur jeweiligen Ansicht.
+   Auf dem grossen Bildschirm liegt sie im Handy, auf dem Telefon darunter —
+   dort waere sie sonst vierzeilig und wuerde ein Sechstel des Bildes verdecken. */
+.phone-bereich { position: relative; justify-self: center; }
+.blase {
+  position: absolute; left: 8%; right: 8%; bottom: 12%; z-index: 5;
+  background: rgba(17, 24, 32, .93); color: #fff;
+  font-size: 13px; line-height: 1.4; text-align: center;
+  padding: 10px 14px; border-radius: 13px;
+  box-shadow: 0 10px 24px -10px rgba(0,0,0,.65);
+  opacity: 0; transform: translateY(7px);
+  transition: opacity .42s ease, transform .42s ease;
+}
+.blase.sichtbar { opacity: 1; transform: translateY(0); }
+.blase::after {   /* Zipfel nach unten */
+  content: ""; position: absolute; left: 50%; bottom: -6px; transform: translateX(-50%);
+  border-left: 7px solid transparent; border-right: 7px solid transparent;
+  border-top: 7px solid rgba(17, 24, 32, .93);
+}
+@media (max-width: 900px) {
+  .blase {
+    position: static; margin: 16px auto 0; max-width: 330px;
+    font-size: 14.5px; background: var(--card); color: var(--ink);
+    border: 1px solid var(--border); box-shadow: var(--shadow);
+    min-height: 3.4em; display: flex; align-items: center; justify-content: center;
+  }
+  .blase::after { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .blase { transition: none; } }
+
+/* Die animierten Kolibri-Marker der App, mittig auf der LINKEN oberen Ecke
+   der Fussleisten-Kacheln — halb drauf, halb daneben, wie in der App seit
+   26.09. Kachelmasse am Grundframe abgemessen: "Nachrichten" beginnt bei
+   x=47/600, "Profil bearbeiten" bei x=345/600, Oberkante y=1024/1129.
+   z-index 5 haelt sie vor dem wechselnden Bild (das liegt auf 2). */
+.screen img.kolibri { position: absolute; z-index: 5; width: 7.0%; height: auto; border-radius: 0; }
+.screen img.kolibri.nachrichten { left: 4.4%;  top: 88.8%; }
+.screen img.kolibri.profil      { left: 54.0%; top: 88.8%; }
+
+/* Die Kolibri-Marker aus der App laufen ueber dem Standbild weiter.
+   Das Standbild zeigt sie eingefroren — hier decken die echten GIFs
+   dieselben Stellen ab (gelb-rot = ungelesene Nachrichten,
+   gruen-blau = noch nicht geladene Protokolle, wie in app/index.html). */
+.phone-screen { position: relative; line-height: 0; }
+/* Spezifitaet: muss .phone img (width:100%) schlagen */
+.phone-screen img.kolibri {
+  position: absolute; width: 7.4%; height: auto; border-radius: 0;
+  pointer-events: none; z-index: 3;
+}
+.phone-screen img.kolibri.oben   { left: 53.0%; top: 3.4%; width: 6.2%; }
+.phone-screen img.kolibri.links  { left: 31.6%; top: 92.6%; }
+.phone-screen img.kolibri.rechts { left: 84.0%; top: 91.8%; }
+.phone-glow {
+  position: absolute; inset: -14% -18% auto -18%; height: 70%; z-index: -1;
+  background: radial-gradient(60% 60% at 50% 40%, var(--brand-soft), transparent 70%);
+  filter: blur(18px);
+}
+.slogan {
+  display: inline-block; margin: 0 0 6px; font-size: 15px; font-weight: 600;
+  color: var(--brand); letter-spacing: .01em;
+}
+@media (max-width: 900px) {
+  .hero-split { grid-template-columns: 1fr; gap: 30px; }
+  .phone { width: 230px; order: 2; }
+}
+
+/* Nachbildung einer eingehenden Anfrage im Praxis-Cockpit */
+.cockpit-demo {
+  justify-self: center; width: 100%; max-width: 420px; background: var(--card);
+  border: 1px solid var(--border); border-radius: 18px; overflow: hidden;
+  box-shadow: 0 30px 60px -30px rgba(16,24,40,.5), 0 2px 6px rgba(16,24,40,.12);
+}
+.cd-head {
+  display: flex; align-items: center; gap: 10px; padding: 12px 16px;
+  background: var(--brand); color: #fff; font-weight: 650; font-size: 14px;
+}
+.cd-head .zahl {
+  margin-left: auto; background: rgba(255,255,255,.22); border-radius: 999px;
+  padding: 2px 10px; font-size: 13px;
+}
+.cd-karte { padding: 16px; border-bottom: 1px solid var(--border); }
+.cd-karte:last-child { border-bottom: 0; }
+.cd-zeile1 { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.cd-zeile1 img { width: 26px; height: 26px; object-fit: contain; }
+.cd-name { font-weight: 650; font-size: 15px; }
+.cd-zeit { margin-left: auto; font-size: 12.5px; color: var(--muted); }
+.cd-pillen { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.cd-pille {
+  font-size: 12px; padding: 3px 10px; border-radius: 999px;
+  background: var(--brand-soft); color: var(--brand-dark); font-weight: 600;
+}
+.cd-pille.rot { background: var(--akut-soft); color: var(--akut); }
+.cd-text { font-size: 13.5px; color: var(--muted); margin: 0 0 12px; }
+.cd-knoepfe { display: flex; gap: 8px; }
+.cd-knopf {
+  flex: 1 1 0; text-align: center; font-size: 13px; font-weight: 650; padding: 8px 10px;
+  border-radius: 9px; border: 1px solid var(--border); background: var(--bg); color: var(--muted);
+}
+.cd-knopf.ja { background: var(--brand); color: #fff; border-color: transparent; }
+.cd-fuss { padding: 10px 16px; font-size: 12px; color: var(--muted); background: var(--brand-pale); }
+.demo-hinweis { text-align: center; font-size: 12px; color: var(--muted); margin-top: 10px; }
+
+/* ---------- Abschnitt "So funktioniert's": Handy mit Erklaer-Fahnen ---------- */
+/* Drei Spalten: Text links, Handy in der Mitte, Fahnen rechts.
+   stretch: die Fahnen-Spalte wird genauso hoch wie das Handy — nur dann bezieht
+   sich das "top" einer Fahne auf die Handyhoehe und der Zipfel trifft. */
+/* Drei Spalten: Fahnen links, Handy, Fahnen rechts.
+   Der Hero-Text steht zentriert darueber — Text UND Fahnen neben dem Handy
+   passen bei 1280 px nicht nebeneinander, der Text bricht dann dreizeilig um. */
+.tour {
+  display: grid; grid-template-columns: 1fr auto 1fr;
+  gap: 22px; align-items: stretch;
+}
+.hero-zentriert { text-align: center; }
+.hero-zentriert h1 { max-width: none; }
+.hero-zentriert .lead { margin-left: auto; margin-right: auto; }
+.hero-zentriert .hero-actions { justify-content: center; }
+
+/* Ab genug Breite wandert der Text neben das Handy statt darueber.
+   Unterhalb reicht der Platz nicht — dann brechen Ueberschrift und Fahnen um
+   (deshalb erst ab 1250 px, gemessen: Text 400 + Fahnen 240 + Handy 273 +
+   Fahnen 300 + Abstaende passen ab dort). */
+@media (min-width: 1250px) {
+  .hero > .wrap-hero-grid,
+  .hero { display: grid; grid-template-columns: minmax(330px, 380px) 1fr; gap: 40px;
+          align-items: center; }
+  .hero-zentriert { text-align: left; grid-row: span 2; }
+  .hero-zentriert .lead { margin-left: 0; }
+  .hero-zentriert .hero-actions { justify-content: flex-start; }
+  .hero-zentriert h1 { max-width: 14ch; }
+  .tour-titel { grid-column: 2; margin-bottom: 14px; align-self: end; }
+  .tour { grid-column: 2; }
+  .tour-punkte { grid-column: 2; }
+}
+.tour-spalte { position: relative; }
+.tour-mitte { display: flex; flex-direction: column; align-items: center; }
+.tour-spalte.links  .fahne { right: 0; }
+.tour-spalte.rechts .fahne { left: 0;  }
+
+/* eine Erklaer-Fahne in KoliFoX-Farben; "top" setzt das Skript je Fahne */
+.fahne {
+  position: absolute; width: max-content; max-width: 315px;
+  background: var(--brand); color: #fff;
+  padding: 11px 15px; border-radius: 13px;
+  font-size: 15px; font-weight: 600; line-height: 1.35;
+  box-shadow: 0 10px 22px -12px rgba(16,24,40,.5);
+  /* -50%: "top" meint die Hoehe des Zipfels, nicht die Oberkante der Fahne */
+  opacity: 0; transform: translateY(calc(-50% + 6px));
+  transition: opacity .45s ease, transform .45s ease;
+}
+.fahne.sichtbar { opacity: 1; transform: translateY(-50%); }
+.fahne.leise { background: var(--brand-soft); color: var(--brand-dark); }
+/* mehrzeilige Fahne: zweite Zeile kleiner und zurueckgenommen */
+.fahne-zeile { display: block; }
+.fahne-zeile.leise { font-size: 13.5px; font-weight: 500; opacity: .88; margin-top: 3px; }
+/* Fahne mit Logo. Drei Anordnungen, umschaltbar an .tour:
+   logo-oben (Matthias' Vorlage), logo-links, logo-rechts */
+.fahne img {
+  width: 34px; height: 34px; object-fit: contain; flex: 0 0 auto;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,.25));
+}
+.tour.logo-oben .fahne img { display: block; margin: 0 auto 7px; }
+.tour.logo-links .fahne, .tour.logo-rechts .fahne {
+  display: flex; align-items: center; gap: 11px;
+}
+.tour.logo-rechts .fahne img { order: 2; }
+/* Zipfel zum Handy hin */
+.tour-spalte.links  .fahne::after,
+.tour-spalte.rechts .fahne::after {
+  content: ""; position: absolute; top: 50%; margin-top: -8px;
+  border-top: 8px solid transparent; border-bottom: 8px solid transparent;
+}
+.tour-spalte.links  .fahne::after { right: -9px; border-left: 10px solid var(--brand); }
+.tour-spalte.rechts .fahne::after { left: -9px;  border-right: 10px solid var(--brand); }
+.tour-spalte.links  .fahne.leise::after { border-left-color: var(--brand-soft); }
+.tour-spalte.rechts .fahne.leise::after { border-right-color: var(--brand-soft); }
+
+.tour-titel { text-align: center; margin-bottom: 30px; }
+.tour-punkte { display: flex; justify-content: center; gap: 9px; margin-top: 26px; }
+.tour-punkte button {
+  width: 9px; height: 9px; padding: 0; border: 0; border-radius: 50%;
+  background: var(--border); cursor: pointer;
+}
+.tour-punkte button[aria-current="true"] { background: var(--brand); width: 24px; border-radius: 99px; }
+
+@media (max-width: 900px) {
+  .tour { grid-template-columns: 1fr; gap: 14px; }
+  .tour-spalte {
+    position: static; min-height: 0;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .tour-spalte.links  { order: 2; }
+  .tour-spalte.rechts { order: 3; }
+  .tour .phone-bereich { order: 1; }
+  .fahne {
+    position: static !important; width: auto; max-width: none;
+    text-align: left; font-size: 14.5px;
+  }
+  .fahne::after { display: none !important; }
+}
+@media (prefers-reduced-motion: reduce) { .fahne { transition: none; } }
+
+/* Notizzettel-Reihe: die vier Nutzenversprechen */
+.zettel-reihe {
+  display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  justify-items: center; padding: 8px 0;
+}
+.zettel { width: 100%; max-width: 230px; transition: transform .18s ease; }
+.zettel img { display: block; width: 100%; height: auto; filter: drop-shadow(0 10px 18px rgba(16,24,40,.16)); }
+.zettel:nth-child(1) { transform: rotate(-2.5deg); }
+.zettel:nth-child(2) { transform: rotate(1.5deg) translateY(6px); }
+.zettel:nth-child(3) { transform: rotate(-1deg); }
+.zettel:nth-child(4) { transform: rotate(2.5deg) translateY(4px); }
+.zettel:hover { transform: rotate(0deg) translateY(-4px); }
+@media (prefers-reduced-motion: reduce) { .zettel, .zettel:hover { transition: none; } }
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700;
+  letter-spacing: .04em; text-transform: uppercase; color: var(--brand-dark);
+  background: var(--brand-soft); padding: 6px 14px; border-radius: 999px;
+}
+.hero h1 {
+  font-size: clamp(30px, 5.2vw, 52px); line-height: 1.12; letter-spacing: -.02em;
+  margin: 18px 0 14px; max-width: 20ch;
+}
+.hero h1 .accent { color: var(--brand); }
+.hero p.lead { font-size: clamp(16px, 2.1vw, 20px); color: var(--muted); max-width: 58ch; margin: 0 0 26px; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.btn {
+  display: inline-flex; align-items: center; gap: 9px; padding: 13px 24px; border-radius: 999px;
+  font-weight: 650; font-size: 16px; text-decoration: none; cursor: pointer; border: 1px solid transparent;
+}
+.btn-primary { background: var(--brand); color: #fff; box-shadow: var(--shadow); }
+.btn-primary:hover { background: var(--brand-dark); }
+.btn-ghost { background: var(--card); color: var(--brand-dark); border-color: var(--border); }
+.hero-note { font-size: 14px; color: var(--muted); margin-top: 16px; }
+
+/* ---------- Siegel-Laufband ---------- */
+.siegel-band {
+  margin: 40px 0 8px; padding: 18px 0; border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border); background: var(--brand-pale);
+  overflow: hidden; position: relative;
+}
+.siegel-band::before, .siegel-band::after {
+  content: ""; position: absolute; top: 0; bottom: 0; width: 80px; z-index: 2; pointer-events: none;
+}
+.siegel-band::before { left: 0; background: linear-gradient(90deg, var(--brand-pale), transparent); }
+.siegel-band::after { right: 0; background: linear-gradient(270deg, var(--brand-pale), transparent); }
+.siegel-track { display: flex; gap: 34px; width: max-content; animation: laufen 42s linear infinite; }
+.siegel-track img { height: 46px; width: 46px; opacity: .85; }
+@keyframes laufen { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .siegel-track { animation: none; flex-wrap: wrap; width: auto; justify-content: center; } }
+.band-label { text-align: center; font-size: 13px; color: var(--muted); margin: 0 0 14px; }
+
+/* ---------- Abschnitte ---------- */
+section { padding: 56px 0; }
+.sec-head { max-width: 62ch; margin-bottom: 34px; }
+.sec-head h2 { font-size: clamp(24px, 3.4vw, 34px); letter-spacing: -.015em; margin: 10px 0 12px; }
+.sec-head p { color: var(--muted); margin: 0; font-size: 17px; }
+
+/* Funktions-Karten */
+.grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); }
+/* zweite Reihe: nur zwei, dafuer breitere Karten */
+.grid.zwei { margin-top: 18px; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); }
+.feat {
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 22px; box-shadow: var(--shadow); position: relative; overflow: hidden;
+}
+.feat::after {
+  content: ""; position: absolute; inset: 0 0 auto 0; height: 3px;
+  background: linear-gradient(90deg, var(--mint), var(--brand));
+}
+.feat.akut::after { background: linear-gradient(90deg, #fca5a5, var(--akut)); }
+.feat-icon {
+  width: 46px; height: 46px; object-fit: contain; margin-bottom: 14px; display: block;
+}
+.feat h3 { font-size: 18px; margin: 0 0 8px; letter-spacing: -.01em; }
+.feat p { margin: 0; color: var(--muted); font-size: 15px; }
+.feat .tag {
+  display: inline-block; margin-top: 12px; font-size: 12px; font-weight: 700; letter-spacing: .03em;
+  text-transform: uppercase; color: var(--brand-dark); background: var(--brand-soft);
+  padding: 4px 10px; border-radius: 999px;
+}
+.feat.akut .tag { color: var(--akut); background: var(--akut-soft); }
+
+/* Zwei-Wege-Block (einzeln vs. Gruppe) */
+.zweiwege { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); margin-top: 18px; }
+.weg {
+  border: 1px dashed var(--border); border-radius: var(--radius); padding: 20px; background: var(--card);
+}
+.weg strong { display: block; margin-bottom: 6px; }
+.weg span { color: var(--muted); font-size: 15px; }
+
+/* Vertrauen */
+.trust { background: var(--brand-pale); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.trust-grid { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.trust-item h3 { font-size: 16px; margin: 0 0 6px; display: flex; align-items: center; gap: 8px; }
+.trust-item p { margin: 0; color: var(--muted); font-size: 15px; }
+.tick { color: var(--brand); font-weight: 800; }
+
+/* Ablauf */
+.steps { counter-reset: s; display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+.step { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; }
+.step::before {
+  counter-increment: s; content: counter(s);
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 32px; height: 32px; border-radius: 50%; background: var(--brand); color: #fff;
+  font-weight: 700; margin-bottom: 12px;
+}
+.step h3 { font-size: 17px; margin: 0 0 8px; }
+.step p { margin: 0; color: var(--muted); font-size: 15px; }
+
+/* Schluss-CTA */
+.final { text-align: center; }
+.final h2 { font-size: clamp(24px, 3.6vw, 36px); margin: 0 0 12px; }
+.final p { color: var(--muted); max-width: 54ch; margin: 0 auto 26px; font-size: 17px; }
+.final .hero-actions { justify-content: center; }
+
+/* Footer */
+.site-footer {
+  border-top: 1px solid var(--border); padding: 28px 0; margin-top: 20px;
+  display: flex; flex-wrap: wrap; gap: 14px; align-items: center; color: var(--muted); font-size: 14px;
+}
+.site-footer nav { display: flex; gap: 18px; margin-left: auto; }
+
+/* Ansichten */
+.view[hidden] { display: none; }
+
+/* Entwurfs-Hinweis */
+.draft {
+  background: #fffbeb; border-bottom: 1px solid #fcd34d; color: #78350f;
+  font-size: 13.5px; padding: 9px 0;
+}
+:root[data-theme="dark"] .draft, @media (prefers-color-scheme: dark) { }
+.draft strong { font-weight: 700; }
+.todo { border-left: 3px solid var(--mint); padding-left: 14px; color: var(--muted); font-size: 15px; }
+
+@media (max-width: 720px) {
+  .head-row { flex-wrap: wrap; gap: 10px; }
+  .switch { order: 3; width: 100%; justify-content: center; }
+  .switch button { flex: 1 1 0; justify-content: center; padding: 10px 8px; }
+  .head-cta { display: none; }
+  .hero { padding: 34px 0 4px; }
+  section { padding: 40px 0; }
+}
+</style>
+</head>
+<body>
+
+<div class="draft">
+  <div class="wrap"><strong>Entwurf</strong> — Vorschlag zur Abstimmung, nicht veröffentlicht. Zahlen und Referenzen fehlen bewusst (siehe Notiz am Seitenende).</div>
+</div>
+
+<header class="site-head">
+  <div class="wrap head-row">
+    <img class="head-logo" src="assets/icons/logo-horizontal.png" alt="KoliFoX">
+    <div class="head-spacer"></div>
+    <div class="switch" role="tablist" aria-label="Ansicht wählen">
+      <button role="tab" id="tab-pat" aria-controls="view-pat" aria-selected="true">Für Patienten</button>
+      <button role="tab" id="tab-pra" aria-controls="view-pra" aria-selected="false">Für Praxen</button>
+    </div>
+    <a class="head-cta" id="head-cta" href="https://app.kolifox.de">Zur App</a>
+  </div>
+</header>
+
+<!-- ============================ PATIENTEN ============================ -->
+<main class="view" id="view-pat" role="tabpanel" aria-labelledby="tab-pat">
+
+  <div class="wrap hero">
+    <div class="hero-text hero-zentriert">
+      <span class="eyebrow"><img src="assets/icons/logo-icon.svg" alt="" width="16" height="16" aria-hidden="true"> Für Patienten</span>
+      <h1>Beschwerden beschreiben.<br><span class="accent">Zum richtigen Facharzt.</span></h1>
+      <p class="slogan">schnell, präzise und schlau</p>
+      <p class="lead">
+        KoliFoX findet die passende Fachrichtung zu deinen Beschwerden, zeigt Praxen und Apotheken
+        in deiner Nähe und stellt dringende Anfragen direkt an eine Praxis — oder an alle Praxen
+        einer Fachrichtung in deiner Region.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="https://app.kolifox.de">Kostenlos starten</a>
+        <a class="btn btn-ghost" href="#pat-funktionen">Funktionen ansehen</a>
+      </div>
+      <p class="hero-note">Kostenlos für Patienten · Ohne Installation im Browser · Server in der EU</p>
+    </div>
+
+    <!-- Rundgang durch die App: Ueberschrift, Handy und Fahnen wechseln im Takt -->
+    <div class="tour-titel">
+      <h2 id="tour-ueberschrift">KoliFoX-Hauptscreen</h2>
+    </div>
+    <div class="tour logo-links" id="tour">
+      <div class="tour-spalte links" id="fahnen-links"></div>
+      <div class="tour-mitte">
+      <div class="phone-bereich">
+        <div class="phone">
+          <span class="phone-glow" aria-hidden="true"></span>
+          <div class="screen">
+            <img class="frame" src="assets/screens/grundframe.webp"
+                 alt="KoliFoX-App auf dem Handy">
+            <div class="screen-slot" id="screen-slot" aria-live="off"></div>
+            <!-- animierte Marker der App: gelb-rot = ungelesene Nachrichten,
+                 gruen-blau = noch nicht geladene Protokolle (wie in app/index.html) -->
+            <img class="kolibri nachrichten" src="assets/icons/kolibri-gelbrot-44.webp" alt="" aria-hidden="true">
+            <img class="kolibri profil"      src="assets/icons/kolibri-gruenrosa-44.webp" alt="" aria-hidden="true">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tour-spalte rechts" id="fahnen-rechts"></div>
+    </div>
+    <!-- Die Punkte stehen bewusst AUSSERHALB der Tour: sonst waere die Zeile
+         hoeher als das Handy und die Prozent-Hoehen der Fahnen wuerden nicht
+         mehr auf die Eintraege im Bildschirm passen. -->
+    <div class="tour-punkte" id="tour-punkte" role="tablist" aria-label="Ansicht wählen"></div>
+  </div>
+
+  <div class="siegel-band" aria-hidden="true">
+    <div class="siegel-track" id="band-pat"></div>
+  </div>
+  <p class="band-label">56 Fachrichtungen — von Allgemeinmedizin bis Zahnmedizin</p>
+
+  <section id="pat-funktionen">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Was du damit tun kannst</span>
+        <h2>Acht Dinge, die dir den Arztbesuch abnehmen</h2>
+        <p>Alles in einer Anwendung, ohne Wechsel zwischen Portalen — und ohne Anruf in der Praxis.</p>
+      </div>
+
+      <div class="grid">
+        <article class="feat">
+          <img class="feat-icon" src="assets/icons/icon-ki.png" alt="">
+          <h3>KI-gestützte Fachbereichs-Auswahl</h3>
+          <p>Du beschreibst deine Beschwerden in eigenen Worten. KoliFoX schlägt die passende
+             Fachrichtung vor — damit du nicht beim falschen Facharzt landest.</p>
+          <span class="tag">KI-gestützt</span>
+        </article>
+
+        <article class="feat">
+          <img class="feat-icon" src="assets/icons/icon-arzt.png" alt="">
+          <h3>Bundesweite Arzt-Suche</h3>
+          <p>Praxen in deiner Umgebung, nach Entfernung sortiert. Mit deinem Standort findest du
+             auch unterwegs und im Urlaub eine Praxis der richtigen Fachrichtung.</p>
+          <span class="tag">Standortbezogen</span>
+        </article>
+
+        <article class="feat">
+          <img class="feat-icon" src="assets/icons/icon-apotheke.png" alt="">
+          <h3>Bundesweite Apotheken-Suche</h3>
+          <p>Über 17.000 Apotheken in Deutschland, ebenfalls nach Entfernung sortiert —
+             mit Adresse und Telefonnummer.</p>
+          <span class="tag">Standortbezogen</span>
+        </article>
+
+        <article class="feat akut">
+          <img class="feat-icon" src="assets/neu/akut.png" alt="">
+          <h3>Dringende Anfrage</h3>
+          <p>Du brauchst heute einen Termin? Schildere dein Anliegen einmal — die Praxis
+             entscheidet und meldet sich. Kein Warten in der Telefonschleife.</p>
+          <span class="tag">Am selben Tag</span>
+        </article>
+
+        <article class="feat akut">
+          <img class="feat-icon" src="assets/neu/au.png" alt="">
+          <h3>AU-Anfrage</h3>
+          <p>Krankschreibung nötig, aber kein Termin frei? Stell die AU-Anfrage direkt
+             aus der App — mit allen Angaben, die die Praxis dafür braucht.</p>
+          <span class="tag">Ohne Anruf</span>
+        </article>
+
+        <article class="feat akut">
+          <img class="feat-icon" src="assets/neu/ueberweisung.png" alt="">
+          <h3>Überweisungs-Anfrage</h3>
+          <p>Du hast einen Überweisungsschein? Fotografiere ihn ab und sende ihn an eine
+             Praxis der überwiesenen Fachrichtung — ohne Umweg.</p>
+          <span class="tag">In Vorbereitung</span>
+        </article>
+
+      </div>
+
+      <!-- Zweite Reihe, bewusst nur zweispaltig: die beiden Punkte gelten fuer
+           alle Anfragearten darueber, nicht fuer eine einzelne. -->
+      <div class="grid zwei">
+        <article class="feat">
+          <img class="feat-icon" src="assets/neu/verschluesselung.png" alt="">
+          <h3>Verschlüsselt übertragen</h3>
+          <p>Alle Anfragen gehen verschlüsselt an die Praxen, werden auf Servern in der
+             EU verarbeitet und danach automatisch gelöscht.</p>
+          <span class="tag">Server in der EU</span>
+        </article>
+
+        <article class="feat">
+          <img class="feat-icon" src="assets/neu/protokoll.png" alt="">
+          <h3>Lückenloses Protokoll</h3>
+          <p>Jede Anfrage wird vollständig protokolliert und ist als PDF abrufbar: wann du
+             angefragt hast, was die Praxis geantwortet hat, was vereinbart wurde.</p>
+          <span class="tag">Für deine Unterlagen</span>
+        </article>
+      </div>
+
+      <div class="zweiwege">
+        <div class="weg">
+          <strong>An eine bestimmte Praxis</strong>
+          <span>Du wählst deine Praxis und fragst dort direkt an — auch bei einer Praxis,
+                bei der du noch nicht Patient bist.</span>
+        </div>
+        <div class="weg">
+          <strong>An eine Fachgruppe in deiner Region</strong>
+          <span>Oder du fragst alle Praxen einer Fachrichtung in deiner Region gleichzeitig.
+                Die erste Praxis, die zusagt, übernimmt — die übrigen Anfragen entfallen.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="trust">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Deine Daten</span>
+        <h2>Deine Gesundheitsdaten gehören dir</h2>
+        <p>KoliFoX ist kein Ort für deine Krankengeschichte. Wir verarbeiten nur, was für die
+           konkrete Anfrage nötig ist — und löschen es danach.</p>
+      </div>
+      <div class="trust-grid">
+        <div class="trust-item">
+          <h3><span class="tick">✓</span> Server in der EU</h3>
+          <p>Betrieb und Datenhaltung innerhalb der Europäischen Union.</p>
+        </div>
+        <div class="trust-item">
+          <h3><span class="tick">✓</span> Automatische Löschung</h3>
+          <p>Angaben zu dringenden Anfragen werden nach kurzer Frist automatisch gelöscht,
+             nicht auf Vorrat gespeichert.</p>
+        </div>
+        <div class="trust-item">
+          <h3><span class="tick">✓</span> Keine Patientenakte</h3>
+          <p>KoliFoX verwaltet Termine und Anfragen — keine Diagnosen, keine Befunde.</p>
+        </div>
+        <div class="trust-item">
+          <h3><span class="tick">✓</span> Du siehst jeden Schritt</h3>
+          <p>Wer was wann erhalten hat, steht in deinem Protokoll.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="final">
+    <div class="wrap">
+      <h2>In zwei Minuten eingerichtet</h2>
+      <p>Konto anlegen, Praxis speichern, fertig. Ab dann siehst du deine Termine und kannst
+         Anfragen stellen — im Browser oder als App auf dem Handy.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="https://app.kolifox.de">Zur KoliFoX-App</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ============================= PRAXEN ============================= -->
+<main class="view" id="view-pra" role="tabpanel" aria-labelledby="tab-pra" hidden>
+
+  <div class="wrap hero">
+    <div class="hero-split">
+      <div class="hero-text">
+        <span class="eyebrow"><img src="assets/icons/logo-icon.svg" alt="" width="16" height="16" aria-hidden="true"> Für Praxen</span>
+        <h1>Das Telefon wird leiser.<br><span class="accent">Der Tag planbarer.</span></h1>
+        <p class="slogan">schnell, präzise und schlau</p>
+        <p class="lead">
+          Dringende Anfragen und AU-Wünsche kommen schriftlich und vollständig herein — statt
+          dreimal zu klingeln. Ihr Team entscheidet, was wann bearbeitet wird. Ohne neue
+          Praxissoftware, ohne Installation.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://cockpit.kolifox.de/login">Praxis anmelden</a>
+          <a class="btn btn-ghost" href="#pra-funktionen">Funktionen ansehen</a>
+        </div>
+        <p class="hero-note">Läuft im Browser · Rollen für Sekretariat, Ärzte und Labor · Server in der EU</p>
+      </div>
+
+      <div>
+        <div class="cockpit-demo">
+          <div class="cd-head">
+            <img src="assets/neu/akut.png" alt="" width="18" height="18">
+            Dringende Anfragen <span class="zahl">2 offen</span>
+          </div>
+
+          <div class="cd-karte">
+            <div class="cd-zeile1">
+              <img src="assets/neu/akut.png" alt="">
+              <span class="cd-name">M. Berger</span>
+              <span class="cd-zeit">vor 4 Min.</span>
+            </div>
+            <div class="cd-pillen">
+              <span class="cd-pille rot">Akut</span>
+              <span class="cd-pille">Zahnschmerzen</span>
+              <span class="cd-pille">Schwellung</span>
+              <span class="cd-pille">📍 1,2 km</span>
+            </div>
+            <p class="cd-text">Seit gestern Abend starke Schmerzen, Wange geschwollen. Heute erreichbar ab 9 Uhr.</p>
+            <div class="cd-knoepfe">
+              <span class="cd-knopf ja">Annehmen</span>
+              <span class="cd-knopf">Weiterleiten</span>
+              <span class="cd-knopf">Ablehnen</span>
+            </div>
+          </div>
+
+          <div class="cd-karte">
+            <div class="cd-zeile1">
+              <img src="assets/neu/au.png" alt="">
+              <span class="cd-name">S. Kraft</span>
+              <span class="cd-zeit">vor 11 Min.</span>
+            </div>
+            <div class="cd-pillen">
+              <span class="cd-pille">AU-Anfrage</span>
+              <span class="cd-pille">bekannt</span>
+              <span class="cd-pille">📍 3,4 km</span>
+            </div>
+            <p class="cd-text">Erkältung seit Montag, bittet um Krankschreibung bis Freitag.</p>
+            <div class="cd-knoepfe">
+              <span class="cd-knopf ja">Annehmen</span>
+              <span class="cd-knopf">Weiterleiten</span>
+              <span class="cd-knopf">Ablehnen</span>
+            </div>
+          </div>
+
+          <div class="cd-fuss">Heute angenommen: 3 von 6 · Aufnahme aktiv bis 16:00</div>
+        </div>
+        <p class="demo-hinweis">Darstellung nachgebildet — echte Ansicht im Praxis-Cockpit</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="siegel-band" aria-hidden="true">
+    <div class="siegel-track" id="band-pra"></div>
+  </div>
+  <p class="band-label">Für jede Fachrichtung — mit eigenen Rückfragen je Fachbereich</p>
+
+  <section style="padding-bottom:20px">
+    <div class="wrap">
+      <div class="sec-head" style="max-width:none;text-align:center;margin-bottom:26px">
+        <h2 style="margin-bottom:6px">Was sich im Praxisalltag ändert</h2>
+        <p style="margin:0 auto;max-width:56ch">Vier Dinge, die Ihr Team sofort merkt.</p>
+      </div>
+      <div class="zettel-reihe">
+        <div class="zettel"><img src="assets/notizen/telefon.png" alt="Weniger Telefon — Anliegen digital statt per Telefon klären. Ziel: 50 % weniger Anrufe."></div>
+        <div class="zettel"><img src="assets/notizen/ruhe.png" alt="Mehr Ruhe am Empfang — Ihr Team gewinnt Fokus für die Menschen vor Ort."></div>
+        <div class="zettel"><img src="assets/notizen/zeit.png" alt="Mehr Zeit für Patienten — Automatisierte Prozesse schaffen Zeit für Patienten."></div>
+        <div class="zettel"><img src="assets/notizen/erreichbarkeit.png" alt="Mehr Erreichbarkeit — Anfragen digital stellen, einfach, direkt und ohne Warteschleife."></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pra-funktionen">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Vorschlag zur Abstimmung</span>
+        <h2>Was KoliFoX Ihrem Team abnimmt</h2>
+        <p>Die folgenden Punkte sind mein Vorschlag auf Basis dessen, was das Praxis-Cockpit
+           heute kann — wir gehen sie gemeinsam durch.</p>
+      </div>
+
+      <div class="grid">
+        <article class="feat akut">
+          <img class="feat-icon" src="assets/neu/akut.png" alt="">
+          <h3>Dringende Anfragen gesteuert annehmen</h3>
+          <p>Anfragen erreichen Sie schriftlich und vorqualifiziert. Sie legen fest, wie viele
+             Sie pro Tag annehmen — ist das Fenster voll, wird automatisch abgelehnt.</p>
+          <span class="tag">Kapazität im Griff</span>
+        </article>
+
+        <article class="feat">
+          <img class="feat-icon" src="assets/neu/kalender.png" alt="">
+          <h3>Erreichbarkeit selbst bestimmen</h3>
+          <p>Öffnungszeiten, Urlaub, Rufbereitschaft: Was Sie hinterlegen, gilt. Außerhalb
+             Ihrer Zeiten nimmt KoliFoX keine Anfragen an.</p>
+          <span class="tag">Kein Nachtdienst</span>
+        </article>
+
+        <article class="feat">
+          <img class="feat-icon" src="assets/neu/push.png" alt="">
+          <h3>Benachrichtigung statt Dauerblick</h3>
+          <p>Neue Anfragen melden sich per Push oder E-Mail — niemand muss den Bildschirm
+             im Auge behalten.</p>
+          <span class="tag">Push &amp; E-Mail</span>
+        </article>
+
+        <article class="feat">
+          <img class="feat-icon" src="assets/neu/sammelpraxis.png" alt="">
+          <h3>Im Praxisnetz zusammenarbeiten</h3>
+          <p>Mehrere Praxen einer Fachrichtung und Region teilen sich das Anfrage-Aufkommen.
+             Wer zuerst zusagt, übernimmt — die anderen sind entlastet.</p>
+          <span class="tag">Regional</span>
+        </article>
+
+        <article class="feat">
+          <img class="feat-icon" src="assets/icons/icon-arzt.png" alt="">
+          <h3>Digitaler Warteraum</h3>
+          <p>Patienten checken selbst ein und sehen ihre Position. Ihr Team verteilt auf
+             Sprechzimmer, ruft auf und leitet weiter — ohne Zettel.</p>
+          <span class="tag">Im Haus</span>
+        </article>
+
+        <article class="feat">
+          <img class="feat-icon" src="assets/neu/protokoll.png" alt="">
+          <h3>Dokumentiert, ohne Zutun</h3>
+          <p>Jede Anfrage, jede Zusage, jede Weiterleitung steht mit Zeitstempel im Protokoll —
+             als PDF für Ihre Unterlagen.</p>
+          <span class="tag">Nachvollziehbar</span>
+        </article>
+      </div>
+
+      <p class="todo" style="margin-top:26px">
+        <strong>Noch zu besprechen:</strong> Reihenfolge und Gewichtung dieser Punkte, ob wir
+        Aufnahme-Dokumente, Labor-Rolle und Fachbereichs-Rückfragen eigene Karten geben,
+        und welche Aussage ganz oben steht.
+      </p>
+    </div>
+  </section>
+
+  <section class="trust">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">In drei Schritten</span>
+        <h2>So kommt Ihre Praxis dazu</h2>
+        <p>Kein Vertriebstermin nötig, kein Wechsel Ihrer Praxissoftware.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <h3>Praxis anmelden</h3>
+          <p>Sie füllen das Antragsformular aus: Praxisdaten, Fachrichtung, Öffnungszeiten.</p>
+        </div>
+        <div class="step">
+          <h3>Freischaltung</h3>
+          <p>Wir prüfen die Angaben und schalten Ihr Praxis-Konto frei. Anmeldung mit
+             Zwei-Faktor-Schutz.</p>
+        </div>
+        <div class="step">
+          <h3>Loslegen</h3>
+          <p>Räume und Zeiten eintragen, Team einladen — ab dann erreichen Sie Anfragen
+             schriftlich im Cockpit.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="final">
+    <div class="wrap">
+      <h2>Wir suchen Praxen für den Start</h2>
+      <p>KoliFoX ist fertig entwickelt und läuft. Für die erste Praxisgruppe nehmen wir uns
+         Zeit für Einrichtung und Schulung.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="mailto:Matthias.Roettgers@KoliFoX.de?subject=KoliFoX%20f%C3%BCr%20unsere%20Praxis">Gespräch vereinbaren</a>
+        <a class="btn btn-ghost" href="https://cockpit.kolifox.de/login">Zum Praxis-Login</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap" style="display:flex;flex-wrap:wrap;gap:14px;align-items:center;width:100%">
+    <img src="assets/icons/logo-icon.svg" alt="" width="22" height="22" aria-hidden="true">
+    <span>© 2026 KoliFoX</span>
+    <nav>
+      <a href="/impressum.html">Impressum</a>
+      <a href="/datenschutz.html">Datenschutz</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+// ---- Ansichts-Umschalter (Patienten / Praxen), teilbar per #praxen ----
+(function () {
+  var tabs = { pat: document.getElementById('tab-pat'), pra: document.getElementById('tab-pra') };
+  var views = { pat: document.getElementById('view-pat'), pra: document.getElementById('view-pra') };
+  var cta = document.getElementById('head-cta');
+
+  function show(which, push) {
+    Object.keys(views).forEach(function (k) {
+      var on = k === which;
+      views[k].hidden = !on;
+      tabs[k].setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    if (which === 'pra') {
+      cta.textContent = 'Praxis-Login';
+      cta.href = 'https://cockpit.kolifox.de/login';
+    } else {
+      cta.textContent = 'Zur App';
+      cta.href = 'https://app.kolifox.de';
+    }
+    if (push) history.replaceState(null, '', which === 'pra' ? '#praxen' : '#patienten');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  tabs.pat.addEventListener('click', function () { show('pat', true); });
+  tabs.pra.addEventListener('click', function () { show('pra', true); });
+  if (location.hash === '#praxen') show('pra', false);
+})();
+
+// ---- Diashow im Handy-Bildschirm ----
+(function () {
+  const slot = document.getElementById('screen-slot');
+  if (!slot) return;
+
+  // ====== TIMING — hier justieren wir gemeinsam ======
+  const STANDZEIT     = 5200; // wie lange eine Ansicht steht (ms)
+  const FAHNE_KOMMT   =  500; // erste Fahne erscheint so lange nach dem Bildwechsel (ms)
+  const FAHNE_ABSTAND =  350; // Abstand zwischen den Fahnen einer Ansicht (ms)
+  // Der Bildwechsel selbst dauert 600 ms — im CSS bei .screen-slot img.
+  // ===================================================
+
+  // Je Ansicht: Ueberschrift, Bild und die Erklaer-Fahnen.
+  // "y" = Hoehe der Fahne in Prozent der HANDYhoehe. Umrechnung von einer Stelle
+  // im Screenshot: y = (34 + 565 * (0,208 + anteil_im_bild * 0,692)) / 621 * 100
+  // (34 px Gehaeuserand oben, 565 px Bildschirm, Einblendbereich ab 20,8 %).
+  // Zum Feinjustieren genuegt es, die Zahl hier zu aendern.
+  const screens = [
+    { datei: '01-start.webp', titel: 'KoliFoX-Hauptscreen', alt: 'Startansicht der KoliFoX-App',
+      fahnen: [
+        { seite: 'rechts', y: 31, text: 'Fachbereich, Arzt oder Apotheke suchen' },
+        { seite: 'links',  y: 40, icon: 'neu/akut.png', text: 'Du brauchst heute einen Arzt' },
+        { seite: 'rechts', y: 50, icon: 'neu/au.png',   text: 'Du brauchst eine Krankschreibung' },
+      ] },
+    { datei: '02-suchen.webp', titel: 'KoliFoX-Suche', alt: 'Suchen-Menü mit Beschwerden-Check, Arzt- und Apothekensuche',
+      fahnen: [
+        { seite: 'rechts', y: 41, icon: 'icons/icon-ki.png',
+          text: 'KI-Check: Welcher Facharzt passt?' },
+        { seite: 'links',  y: 50, icon: 'icons/icon-arzt.png',
+          text: 'Arzt in deiner Nähe (GPS)' },
+        { seite: 'rechts', y: 57, icon: 'icons/icon-apotheke.png',
+          text: 'Apotheke in deiner Nähe (GPS)' },
+      ] },
+    { datei: '03-dringend.webp', titel: 'Dringende Anfrage', alt: 'Dringende Anfrage mit Regionsauswahl',
+      fahnen: [
+        { seite: 'links',  y: 38, text: 'Region wählen' },
+        { seite: 'rechts', y: 66, text: 'Ausfüllen & Absenden – ohne Anrufen' },
+        { seite: 'links',  y: 74, text: 'Wird automatisch gelöscht', leise: true },
+      ] },
+    { datei: '04-anfrage-laeuft.webp', titel: 'Anfrage läuft', alt: 'Abgeschickte Anfrage an mehrere Praxen',
+      fahnen: [
+        // Hoehen von Matthias am Bild abgenommen: die rote Zeile "Bitte bleiben
+        // Sie erreichbar!" liegt bei 63 %, der blaue Weiterleitungs-Hinweis bei 81 %.
+        { seite: 'rechts', y: 63, text: 'Bitte erreichbar bleiben' },
+        { seite: 'links',  y: 81, text: 'Deine Anfrage ist bei den Praxen' },
+      ] },
+    // Verfalls-Anzeige, Protokoll und die Hinweise stehen erst in dieser Ansicht
+    { datei: '05-anfrage-detail.webp', titel: 'Weitergeleitet', alt: 'Weitergeleitete Anfrage mit Protokoll',
+      fahnen: [
+        { seite: 'links',  y: 43, text: 'Kann die erste Praxis nicht, geht es automatisch weiter' },
+        // Verfalls-Pille und Protokoll-Knopf stehen in derselben Zeile, deshalb
+        // eine gemeinsame Fahne mit zwei Zeilen statt zweier Fahnen uebereinander.
+        { seite: 'rechts', y: 52, zeilen: [
+            'Lade dein Protokoll herunter',
+            'Ohne Antwort verfällt die Anfrage automatisch' ] },
+        { seite: 'rechts', y: 66, text: 'Unterlagen vorab vorbereiten' },
+      ] },
+  ];
+
+  screens.forEach((s, i) => {
+    const img = document.createElement('img');
+    img.src = 'assets/screens/handy-serie/' + s.datei;
+    img.alt = s.alt;
+    if (i === 0) img.className = 'aktiv';
+    if (i > 0) img.loading = 'lazy';   // erste Ansicht sofort, Rest bei Bedarf
+    slot.appendChild(img);
+  });
+
+  const bilder = [...slot.querySelectorAll('img')];
+  const titel  = document.getElementById('tour-ueberschrift');
+  // Links vom Handy steht der Hero-Text, deshalb gibt es derzeit nur die rechte
+  // Spalte. Faellt eine Fahne auf "links", landet sie ebenfalls rechts.
+  const rechts = document.getElementById('fahnen-rechts');
+  const spalte = { links: document.getElementById('fahnen-links') || rechts, rechts };
+  const punkte = document.getElementById('tour-punkte');
+
+  let i = 0, laeuft = true, uhr = null;
+  const timer = [];
+  const merken = (fn, ms) => { timer.push(setTimeout(fn, ms)); };
+  const aufraeumen = () => { while (timer.length) clearTimeout(timer.pop()); };
+
+  // Wechsel-Punkte unter dem Handy
+  screens.forEach((s, n) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.setAttribute('aria-label', s.titel);
+    b.addEventListener('click', () => { zeigen(n); neuStarten(); });
+    punkte.appendChild(b);
+  });
+
+  function fahnenSetzen(s) {
+    spalte.links.innerHTML = '';
+    if (spalte.rechts !== spalte.links) spalte.rechts.innerHTML = '';
+    s.fahnen.forEach((f, n) => {
+      const el = document.createElement('div');
+      el.className = 'fahne' + (f.leise ? ' leise' : '');
+      el.style.top = f.y + '%';
+      if (f.icon) {
+        const bild = document.createElement('img');
+        bild.src = 'assets/' + f.icon;
+        bild.alt = '';
+        el.appendChild(bild);
+      }
+      if (f.zeilen) {
+        // mehrzeilige Fahne: erste Zeile fuehrend, die weiteren etwas leiser
+        const block = document.createElement('span');
+        f.zeilen.forEach((z, n) => {
+          const zeile = document.createElement('span');
+          zeile.className = n === 0 ? 'fahne-zeile' : 'fahne-zeile leise';
+          zeile.textContent = z;
+          block.appendChild(zeile);
+        });
+        el.appendChild(block);
+      } else {
+        el.appendChild(document.createTextNode(f.text));
+      }
+      spalte[f.seite].appendChild(el);
+      // versetzt einblenden, damit der Blick mitgeht
+      merken(() => el.classList.add('sichtbar'), FAHNE_KOMMT + n * FAHNE_ABSTAND);
+    });
+  }
+
+  function zeigen(n) {
+    aufraeumen();
+    bilder[i].classList.remove('aktiv');
+    i = n;
+    bilder[i].classList.add('aktiv');
+    titel.textContent = screens[i].titel;
+    fahnenSetzen(screens[i]);
+    [...punkte.children].forEach((b, k) =>
+      b.setAttribute('aria-current', k === i ? 'true' : 'false'));
+  }
+
+  function weiter() { if (laeuft && bilder.length > 1) zeigen((i + 1) % bilder.length); }
+  function starten() { if (!uhr) uhr = setInterval(weiter, STANDZEIT); }
+  function stoppen() { clearInterval(uhr); uhr = null; }
+  function neuStarten() { stoppen(); starten(); }
+
+  zeigen(0);
+  starten();
+
+  // Anhalten, solange das Handy nicht zu sehen ist
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(e => { laeuft = e[0].isIntersecting; }, { threshold: .2 }).observe(slot);
+  }
+  // und beim Darauffahren, damit man in Ruhe hinsehen kann
+  const phone = slot.closest('.phone');
+  if (phone) {
+    phone.addEventListener('mouseenter', () => { laeuft = false; });
+    phone.addEventListener('mouseleave', () => { laeuft = true; });
+  }
+  document.addEventListener('visibilitychange', () => document.hidden ? stoppen() : starten());
+})();
+
+// ---- Fachbereichs-Siegel im Laufband (zweifach fuer den Endlos-Effekt) ----
+(function () {
+  var siegel = ['allgemeinmedizin','innere-kardiologie','paediatrie','zahnmedizin','hno',
+    'augenheilkunde','dermatologie','orthopaedie','frauenheilkunde','neurologie','urologie',
+    'radiologie','psychiatrie','innere-gastroenterologie','anaesthesiologie','mkg-chirurgie'];
+  ['band-pat','band-pra'].forEach(function (id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var html = '';
+    for (var runde = 0; runde < 2; runde++) {
+      siegel.forEach(function (name) {
+        html += '<img src="assets/fach/' + name + '.png" alt="" loading="lazy">';
+      });
+    }
+    el.innerHTML = html;
+  });
+})();
+</script>
+</body>
+</html>
