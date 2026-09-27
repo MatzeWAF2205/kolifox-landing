@@ -261,13 +261,17 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--focus); outline
      Cockpit-Nachbildung) und wuerde hier zerdrueckt. */
   #view-pat .hero { display: grid; grid-template-columns: minmax(330px, 380px) 1fr; gap: 40px;
           align-items: center; }
-  #view-pat .hero-zentriert { text-align: left; grid-row: span 2; }
+  /* span 3: der Text deckt alle drei Zeilen der rechten Spalte ab (Titel,
+     Tour, Punkte). Mit span 2 wurden die oberen Zeilen gestreckt und
+     Ueberschrift wie Laufbalken rutschten vom Handy weg. */
+  #view-pat .hero-zentriert { text-align: left; grid-row: span 4; }
   #view-pat .hero-zentriert .lead { margin-left: 0; }
   #view-pat .hero-zentriert .hero-actions { justify-content: flex-start; }
   #view-pat .hero-zentriert h1 { max-width: 14ch; }
-  #view-pat .tour-titel { grid-column: 2; margin-bottom: 14px; align-self: end; }
+  #view-pat .tour-titel { grid-column: 2; margin-bottom: 10px; align-self: end; }
   #view-pat .tour { grid-column: 2; }
   #view-pat .tour-punkte { grid-column: 2; }
+  #view-pat .kolibri-legende { grid-column: 2; align-self: start; }
 }
 .tour-spalte { position: relative; }
 .tour-mitte { display: flex; flex-direction: column; align-items: center; }
@@ -312,8 +316,19 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--focus); outline
 .tour-spalte.links  .fahne.leise::after { border-left-color: var(--brand-soft); }
 .tour-spalte.rechts .fahne.leise::after { border-right-color: var(--brand-soft); }
 
-.tour-titel { text-align: center; margin-bottom: 30px; }
-.tour-punkte { display: flex; justify-content: center; gap: 9px; margin-top: 26px; }
+.tour-titel { text-align: center; margin-bottom: 14px; }
+/* ohne das greift der Browser-Standard (rund 28 px oben und unten) und
+   schiebt die Ueberschrift vom Handy weg */
+.tour-titel h2 { margin: 0; font-size: clamp(20px, 2.6vw, 26px); }
+.tour-punkte { display: flex; justify-content: center; gap: 9px; margin-top: 14px; }
+
+/* Legende zu den animierten Kolibris, unter dem Laufbalken */
+.kolibri-legende {
+  display: flex; flex-direction: column; gap: 6px; align-items: center;
+  margin-top: 16px; font-size: 13.5px; color: var(--muted); line-height: 1.35;
+}
+.kolibri-legende span { display: flex; align-items: center; gap: 9px; }
+.kolibri-legende img { width: 26px; height: 26px; flex: 0 0 auto; }
 .tour-punkte button {
   width: 9px; height: 9px; padding: 0; border: 0; border-radius: 50%;
   background: var(--border); cursor: pointer;
@@ -396,6 +411,9 @@ section { padding: 56px 0; }
 
 /* Funktions-Karten */
 .grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); }
+/* ab genug Breite feste Dreierreihen — sonst stehen die sechs Karten als 4+2 */
+@media (min-width: 1150px) { .grid { grid-template-columns: repeat(3, 1fr); }
+                             .grid.zwei { grid-template-columns: repeat(2, 1fr); } }
 /* zweite Reihe: nur zwei, dafuer breitere Karten */
 .grid.zwei { margin-top: 18px; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); }
 .feat {
@@ -420,7 +438,8 @@ section { padding: 56px 0; }
 .feat.akut .tag { color: var(--akut); background: var(--akut-soft); }
 
 /* Zwei-Wege-Block (einzeln vs. Gruppe) */
-.zweiwege { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); margin-top: 18px; }
+.zweiwege { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); margin-top: 10px; }
+.zweiwege-titel { font-size: 18px; margin: 30px 0 0; letter-spacing: -.01em; }
 .weg {
   border: 1px dashed var(--border); border-radius: var(--radius); padding: 20px; background: var(--card);
 }
@@ -547,6 +566,11 @@ section { padding: 56px 0; }
          hoeher als das Handy und die Prozent-Hoehen der Fahnen wuerden nicht
          mehr auf die Eintraege im Bildschirm passen. -->
     <div class="tour-punkte" id="tour-punkte" role="tablist" aria-label="Ansicht wählen"></div>
+    <!-- Was die beiden Voegel in der Fussleiste des Handys bedeuten -->
+    <div class="kolibri-legende">
+      <span><img src="assets/icons/kolibri-gelbrot-44.webp" alt="">Der gelb-rote Kolibri zeigt: neue Nachrichten sind da.</span>
+      <span><img src="assets/icons/kolibri-gruenrosa-44.webp" alt="">Der grün-rosa Kolibri zeigt: neue Protokolle stehen zum Herunterladen bereit.</span>
+    </div>
   </div>
 
   <div class="siegel-band" aria-hidden="true">
@@ -633,6 +657,7 @@ section { padding: 56px 0; }
         </article>
       </div>
 
+      <h3 class="zweiwege-titel">An wen geht deine Anfrage?</h3>
       <div class="zweiwege">
         <div class="weg">
           <strong>An eine bestimmte Praxis</strong>
