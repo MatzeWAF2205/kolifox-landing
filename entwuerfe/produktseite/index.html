@@ -425,6 +425,60 @@ section { padding: 56px 0; }
   background: linear-gradient(90deg, var(--mint), var(--brand));
 }
 .feat.akut::after { background: linear-gradient(90deg, #fca5a5, var(--akut)); }
+
+/* AU-Kachel in der Anmutung des AU-Scheins: cremegelbes Papier, rotes Raster.
+   Bewusst nur die Farbwelt — das Formular selbst (Muster 1a der KBV) bilden
+   wir nicht ab. */
+.feat.au-schein {
+  background: #fdf8e3;
+  border-color: #e7d9a6;
+}
+.feat.au-schein::after { background: linear-gradient(90deg, #e30613, #a30510); }
+.feat.au-schein h3 { color: #b3050f; }
+.feat.au-schein p { color: #6b5a3a; }
+.feat.au-schein .tag { background: #fae3e3; color: #b3050f; }
+:root:not([data-theme="light"]) .feat.au-schein,
+:root[data-theme="dark"] .feat.au-schein { background: #2a2618; border-color: #4a4128; }
+:root:not([data-theme="light"]) .feat.au-schein p,
+:root[data-theme="dark"] .feat.au-schein p { color: #c9bc99; }
+:root:not([data-theme="light"]) .feat.au-schein h3,
+:root[data-theme="dark"] .feat.au-schein h3 { color: #f08b8b; }
+
+/* Der Aufkleber selbst — Papiergelb, roter Rand, leicht schief wie aufgeklebt */
+.au-sticker {
+  position: absolute; right: 12px; bottom: 12px; z-index: 3;
+  max-width: 132px; padding: 7px 11px;
+  background: #fdf3c4; border: 1.5px solid #e30613; border-radius: 6px;
+  color: #b3050f; font-size: 12px; font-weight: 700; line-height: 1.3;
+  transform: rotate(-4deg); transform-origin: bottom right;
+  box-shadow: 0 3px 10px -4px rgba(0,0,0,.35);
+  transition: max-width .3s ease, padding .3s ease, transform .3s ease;
+  cursor: default;
+}
+.au-sticker-gross { display: none; font-weight: 500; }
+.au-sticker-gross strong { display: block; margin-bottom: 4px; font-weight: 800; }
+
+/* beim Darauffahren geht er auf */
+.feat.au-schein:hover .au-sticker {
+  max-width: 250px; padding: 11px 13px; transform: rotate(-1.5deg) scale(1.02);
+}
+.feat.au-schein:hover .au-sticker-klein { display: none; }
+.feat.au-schein:hover .au-sticker-gross { display: block; }
+
+/* Platz fuer den Aufkleber, damit er den Text nicht verdeckt */
+.feat.au-schein { padding-bottom: 58px; }
+
+/* Ohne Hover (Telefon, Tablet): der Aufkleber steht dauerhaft offen und
+   sitzt unter dem Text statt in der Ecke. */
+@media (hover: none) {
+  .au-sticker {
+    position: static; max-width: none; transform: none; margin-top: 14px;
+    display: block; padding: 11px 13px;
+  }
+  .au-sticker-klein { display: none; }
+  .au-sticker-gross { display: block; }
+  .feat.au-schein { padding-bottom: 22px; }
+}
 .feat-icon {
   width: 46px; height: 46px; object-fit: contain; margin-bottom: 14px; display: block;
 }
@@ -619,12 +673,23 @@ section { padding: 56px 0; }
           <span class="tag">Am selben Tag</span>
         </article>
 
-        <article class="feat akut">
+        <article class="feat au-schein">
           <img class="feat-icon" src="assets/neu/au.png" alt="">
           <h3>AU-Anfrage</h3>
           <p>Krankschreibung nötig, aber kein Termin frei? Stell die AU-Anfrage direkt
              aus der App — mit allen Angaben, die die Praxis dafür braucht.</p>
           <span class="tag">Ohne Anruf</span>
+          <!-- Aufkleber in der Anmutung des AU-Scheins: klein in der Ecke,
+               geht beim Darauffahren auf. Auf dem Telefon (kein Hover) steht
+               er dauerhaft offen. -->
+          <span class="au-sticker">
+            <span class="au-sticker-klein">AU-Schein?</span>
+            <span class="au-sticker-gross">
+              <strong>Du benötigst eine Arbeitsunfähigkeits­bescheinigung?</strong>
+              Ausstellen kann sie nur deine Praxis. KoliFoX bringt deine Anfrage
+              dorthin — ohne Telefonschleife.
+            </span>
+          </span>
         </article>
 
         <article class="feat akut">
