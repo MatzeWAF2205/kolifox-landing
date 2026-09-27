@@ -256,16 +256,18 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--focus); outline
    (deshalb erst ab 1250 px, gemessen: Text 400 + Fahnen 240 + Handy 273 +
    Fahnen 300 + Abstaende passen ab dort). */
 @media (min-width: 1250px) {
-  .hero > .wrap-hero-grid,
-  .hero { display: grid; grid-template-columns: minmax(330px, 380px) 1fr; gap: 40px;
+  /* NUR die Patienten-Ansicht: dort steht die Tour mit dem Handy daneben.
+     Die Praxis-Ansicht hat einen eigenen Aufbau (.hero-split mit der
+     Cockpit-Nachbildung) und wuerde hier zerdrueckt. */
+  #view-pat .hero { display: grid; grid-template-columns: minmax(330px, 380px) 1fr; gap: 40px;
           align-items: center; }
-  .hero-zentriert { text-align: left; grid-row: span 2; }
-  .hero-zentriert .lead { margin-left: 0; }
-  .hero-zentriert .hero-actions { justify-content: flex-start; }
-  .hero-zentriert h1 { max-width: 14ch; }
-  .tour-titel { grid-column: 2; margin-bottom: 14px; align-self: end; }
-  .tour { grid-column: 2; }
-  .tour-punkte { grid-column: 2; }
+  #view-pat .hero-zentriert { text-align: left; grid-row: span 2; }
+  #view-pat .hero-zentriert .lead { margin-left: 0; }
+  #view-pat .hero-zentriert .hero-actions { justify-content: flex-start; }
+  #view-pat .hero-zentriert h1 { max-width: 14ch; }
+  #view-pat .tour-titel { grid-column: 2; margin-bottom: 14px; align-self: end; }
+  #view-pat .tour { grid-column: 2; }
+  #view-pat .tour-punkte { grid-column: 2; }
 }
 .tour-spalte { position: relative; }
 .tour-mitte { display: flex; flex-direction: column; align-items: center; }

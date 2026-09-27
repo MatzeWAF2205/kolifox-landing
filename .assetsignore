@@ -1,0 +1,6 @@
+# Vom Deploy ausgeschlossen (Cloudflare Workers Static Assets).
+# wrangler.jsonc liefert mit "directory": "./" den ganzen Ordner aus —
+# ohne diesen Ausschluss waere der Landing-Entwurf unter
+# kolifox.de/entwuerfe/produktseite/ oeffentlich erreichbar, obwohl er
+# ausdruecklich nur zur Abstimmung gedacht ist.
+entwuerfe/
