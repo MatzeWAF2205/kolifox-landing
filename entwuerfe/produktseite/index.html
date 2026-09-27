@@ -437,11 +437,15 @@ section { padding: 56px 0; }
 .feat.au-schein h3 { color: #b3050f; }
 .feat.au-schein p { color: #6b5a3a; }
 .feat.au-schein .tag { background: #fae3e3; color: #b3050f; }
-:root:not([data-theme="light"]) .feat.au-schein,
+/* Dunkelmodus — die Media Query ist Pflicht, sonst gilt :root:not([data-theme="light"])
+   auch bei hellem Erscheinungsbild und die Kachel wird immer dunkel. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .feat.au-schein { background: #2a2618; border-color: #4a4128; }
+  :root:not([data-theme="light"]) .feat.au-schein p { color: #c9bc99; }
+  :root:not([data-theme="light"]) .feat.au-schein h3 { color: #f08b8b; }
+}
 :root[data-theme="dark"] .feat.au-schein { background: #2a2618; border-color: #4a4128; }
-:root:not([data-theme="light"]) .feat.au-schein p,
 :root[data-theme="dark"] .feat.au-schein p { color: #c9bc99; }
-:root:not([data-theme="light"]) .feat.au-schein h3,
 :root[data-theme="dark"] .feat.au-schein h3 { color: #f08b8b; }
 
 /* Der Aufkleber selbst — Papiergelb, roter Rand, leicht schief wie aufgeklebt */
