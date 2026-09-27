@@ -419,42 +419,61 @@ section { padding: 56px 0; }
 .feat {
   background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
   padding: 22px; box-shadow: var(--shadow); position: relative; overflow: hidden;
+  /* Spalte, damit die Pille unten rechts sitzt statt direkt unter dem Text —
+     dadurch stehen die Pillen aller Karten einer Reihe auf einer Linie. */
+  display: flex; flex-direction: column;
 }
+.feat p { flex: 1 1 auto; }
 .feat::after {
   content: ""; position: absolute; inset: 0 0 auto 0; height: 3px;
   background: linear-gradient(90deg, var(--mint), var(--brand));
 }
 .feat.akut::after { background: linear-gradient(90deg, #fca5a5, var(--akut)); }
 
-/* AU-Kachel in der Anmutung des AU-Scheins: cremegelbes Papier, rotes Raster.
-   Bewusst nur die Farbwelt — das Formular selbst (Muster 1a der KBV) bilden
-   wir nicht ab. */
-.feat.au-schein {
-  background: #fdf8e3;
-  border-color: #e7d9a6;
-}
-.feat.au-schein::after { background: linear-gradient(90deg, #e30613, #a30510); }
-.feat.au-schein h3 { color: #b3050f; }
-.feat.au-schein p { color: #6b5a3a; }
-.feat.au-schein .tag { background: #fae3e3; color: #b3050f; }
-/* Dunkelmodus — die Media Query ist Pflicht, sonst gilt :root:not([data-theme="light"])
-   auch bei hellem Erscheinungsbild und die Kachel wird immer dunkel. */
+/* Die drei Anfrage-Kacheln tragen die Farben ihrer Knoepfe in der App —
+   so erkennt man sie dort wieder. Werte 1:1 aus app/index.html. */
+.feat.k-dringend      { background: #fee2e2; border-color: #fecaca; }
+.feat.k-dringend::after { background: linear-gradient(90deg, #f87171, #b91c1c); }
+.feat.k-dringend h3   { color: #b91c1c; }
+.feat.k-dringend p    { color: #7d3b3b; }
+.feat.k-dringend .tag { background: #fecaca; color: #b91c1c; }
+
+.feat.k-au      { background: #fef3c7; border-color: #fcd34d; }
+.feat.k-au::after { background: linear-gradient(90deg, #fbbf24, #92400e); }
+.feat.k-au h3   { color: #92400e; }
+.feat.k-au p    { color: #6b5324; }
+.feat.k-au .tag { background: #fde68a; color: #92400e; }
+
+.feat.k-ueberweisung      { background: #ffedd5; border-color: #fed7aa; }
+.feat.k-ueberweisung::after { background: linear-gradient(90deg, #fb923c, #9a3412); }
+.feat.k-ueberweisung h3   { color: #9a3412; }
+.feat.k-ueberweisung p    { color: #7a4a2c; }
+.feat.k-ueberweisung .tag { background: #fed7aa; color: #9a3412; }
+
+/* Aufkleber auf farbigem Grund: heller Papierton, damit er sich abhebt */
+.feat.k-dringend .au-sticker     { background: #fff6f6; border-color: #b91c1c; color: #b91c1c; }
+.feat.k-au .au-sticker           { background: #fffdf2; border-color: #b91c1c; color: #92400e; }
+.feat.k-ueberweisung .au-sticker { background: #fffaf3; border-color: #c2410c; color: #9a3412; }
+
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .feat.au-schein { background: #2a2618; border-color: #4a4128; }
-  :root:not([data-theme="light"]) .feat.au-schein p { color: #c9bc99; }
-  :root:not([data-theme="light"]) .feat.au-schein h3 { color: #f08b8b; }
+  :root:not([data-theme="light"]) .feat.k-dringend     { background: #2b1a1a; border-color: #4a2a2a; }
+  :root:not([data-theme="light"]) .feat.k-dringend p   { color: #d8b0b0; }
+  :root:not([data-theme="light"]) .feat.k-dringend h3  { color: #f08b8b; }
+  :root:not([data-theme="light"]) .feat.k-au           { background: #2a2618; border-color: #4a4128; }
+  :root:not([data-theme="light"]) .feat.k-au p         { color: #c9bc99; }
+  :root:not([data-theme="light"]) .feat.k-au h3        { color: #e8b761; }
+  :root:not([data-theme="light"]) .feat.k-ueberweisung    { background: #2b2018; border-color: #4a3628; }
+  :root:not([data-theme="light"]) .feat.k-ueberweisung p  { color: #cfb49a; }
+  :root:not([data-theme="light"]) .feat.k-ueberweisung h3 { color: #f0a76b; }
 }
-:root[data-theme="dark"] .feat.au-schein { background: #2a2618; border-color: #4a4128; }
-:root[data-theme="dark"] .feat.au-schein p { color: #c9bc99; }
-:root[data-theme="dark"] .feat.au-schein h3 { color: #f08b8b; }
 
 /* Der Aufkleber selbst — Papiergelb, roter Rand, leicht schief wie aufgeklebt */
 .au-sticker {
-  position: absolute; right: 12px; bottom: 12px; z-index: 3;
+  position: absolute; right: 12px; top: 10px; z-index: 3;
   max-width: 132px; padding: 7px 11px;
   background: #fdf3c4; border: 1.5px solid #e30613; border-radius: 6px;
   color: #b3050f; font-size: 12px; font-weight: 700; line-height: 1.3;
-  transform: rotate(-4deg); transform-origin: bottom right;
+  transform: rotate(-4deg); transform-origin: top right;
   box-shadow: 0 3px 10px -4px rgba(0,0,0,.35);
   transition: max-width .3s ease, padding .3s ease, transform .3s ease;
   cursor: default;
@@ -463,14 +482,25 @@ section { padding: 56px 0; }
 .au-sticker-gross strong { display: block; margin-bottom: 4px; font-weight: 800; }
 
 /* beim Darauffahren geht er auf */
-.feat.au-schein:hover .au-sticker {
-  max-width: 250px; padding: 11px 13px; transform: rotate(-1.5deg) scale(1.02);
+/* Anker ist der Aufkleber selbst, nicht die ganze Karte — sonst geht er
+   schon auf, wenn man irgendwo ueber die Karte faehrt, und verdeckt genau den
+   Text, den man lesen will. Er waechst von seiner Ecke aus nach innen, damit
+   der Mauszeiger drauf bleibt und er nicht flackert. */
+.au-sticker:hover {
+  /* 64 %: links bleibt die Ueberschrift der Karte sichtbar */
+  max-width: 64%; padding: 12px 14px;
+  transform: rotate(-1.5deg);
+  z-index: 4;
 }
-.feat.au-schein:hover .au-sticker-klein { display: none; }
-.feat.au-schein:hover .au-sticker-gross { display: block; }
+.au-sticker:hover .au-sticker-klein { display: none; }
+.au-sticker:hover .au-sticker-gross { display: block; }
+/* der Text der Karte tritt zurueck, solange der Aufkleber offen ist */
+.feat:has(.au-sticker:hover) p { opacity: .12; }
+.feat p { transition: opacity .3s ease; }
 
 /* Platz fuer den Aufkleber, damit er den Text nicht verdeckt */
-.feat.au-schein { padding-bottom: 58px; }
+.feat.k-au,
+.feat.k-ueberweisung { padding-right: 22px; }
 
 /* Ohne Hover (Telefon, Tablet): der Aufkleber steht dauerhaft offen und
    sitzt unter dem Text statt in der Ecke. */
@@ -481,7 +511,9 @@ section { padding: 56px 0; }
   }
   .au-sticker-klein { display: none; }
   .au-sticker-gross { display: block; }
-  .feat.au-schein { padding-bottom: 22px; }
+  .feat.k-dringend,
+  .feat.k-au,
+  .feat.k-ueberweisung { padding-bottom: 22px; }
 }
 .feat-icon {
   width: 46px; height: 46px; object-fit: contain; margin-bottom: 14px; display: block;
@@ -489,7 +521,8 @@ section { padding: 56px 0; }
 .feat h3 { font-size: 18px; margin: 0 0 8px; letter-spacing: -.01em; }
 .feat p { margin: 0; color: var(--muted); font-size: 15px; }
 .feat .tag {
-  display: inline-block; margin-top: 12px; font-size: 12px; font-weight: 700; letter-spacing: .03em;
+  align-self: flex-end; margin-top: 14px;
+  display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .03em;
   text-transform: uppercase; color: var(--brand-dark); background: var(--brand-soft);
   padding: 4px 10px; border-radius: 999px;
 }
@@ -669,15 +702,23 @@ section { padding: 56px 0; }
           <span class="tag">Standortbezogen</span>
         </article>
 
-        <article class="feat akut">
+        <article class="feat k-dringend">
           <img class="feat-icon" src="assets/neu/akut.png" alt="">
           <h3>Dringende Anfrage</h3>
           <p>Du brauchst heute einen Termin? Schildere dein Anliegen einmal — die Praxis
              entscheidet und meldet sich. Kein Warten in der Telefonschleife.</p>
           <span class="tag">Am selben Tag</span>
+          <span class="au-sticker">
+            <span class="au-sticker-klein">Akut?</span>
+            <span class="au-sticker-gross">
+              <strong>Du hast Beschwerden und brauchst heute einen Arzt?</strong>
+              KoliFoX fragt für dich an — bei einer Praxis oder gleich mehreren
+              in deiner Region.
+            </span>
+          </span>
         </article>
 
-        <article class="feat au-schein">
+        <article class="feat k-au">
           <img class="feat-icon" src="assets/neu/au.png" alt="">
           <h3>AU-Anfrage</h3>
           <p>Krankschreibung nötig, aber kein Termin frei? Stell die AU-Anfrage direkt
@@ -696,12 +737,20 @@ section { padding: 56px 0; }
           </span>
         </article>
 
-        <article class="feat akut">
+        <article class="feat k-ueberweisung">
           <img class="feat-icon" src="assets/neu/ueberweisung.png" alt="">
           <h3>Überweisungs-Anfrage</h3>
           <p>Du hast einen Überweisungsschein? Fotografiere ihn ab und sende ihn an eine
              Praxis der überwiesenen Fachrichtung — ohne Umweg.</p>
           <span class="tag">In Vorbereitung</span>
+          <span class="au-sticker">
+            <span class="au-sticker-klein">Überweisung?</span>
+            <span class="au-sticker-gross">
+              <strong>Du hast eine Überweisung bekommen?</strong>
+              KoliFoX bringt sie zur passenden Fachpraxis — samt deiner Anfrage,
+              ohne Telefonschleife.
+            </span>
+          </span>
         </article>
 
       </div>
