@@ -851,7 +851,8 @@ section { padding: 56px 0; }
           <a class="btn btn-primary" href="https://cockpit.kolifox.de/login">Praxis anmelden</a>
           <a class="btn btn-ghost" href="#pra-funktionen">Funktionen ansehen</a>
         </div>
-        <p class="hero-note">Läuft im Browser · Rollen für Sekretariat, Ärzte und Labor · Server in der EU</p>
+        <p class="hero-note">Läuft im Browser · Rollen für Sekretariat, Ärzte und Labor · Server in Deutschland</p>
+        <p class="hero-note">Fertiger AV-Vertrag · Zwei-Faktor-Pflicht · Automatische Löschfristen</p>
       </div>
 
       <div>
@@ -979,9 +980,10 @@ section { padding: 56px 0; }
 
         <article class="feat">
           <img class="feat-icon" src="assets/neu/protokoll.png" alt="">
-          <h3>Dokumentiert, ohne Zutun</h3>
-          <p>Jede Anfrage, jede Zusage, jede Weiterleitung steht mit Zeitstempel im Protokoll —
-             als PDF für Ihre Unterlagen.</p>
+          <h3>Audit-Trail — drei Jahre</h3>
+          <p>Jeder Zugriff mit Rolle, Nutzer und Zeitpunkt protokolliert. Deckt Ihre
+             Rechenschaftspflicht nach Art. 5 Abs. 2 DSGVO ab, als PDF für Ihre Unterlagen.
+             Ihre Behandlungsdokumentation nach § 630f BGB bleibt davon unberührt im PVS.</p>
           <span class="tag">Nachvollziehbar</span>
         </article>
       </div>
@@ -990,6 +992,79 @@ section { padding: 56px 0; }
         <strong>Noch zu besprechen:</strong> Reihenfolge und Gewichtung dieser Punkte, ob wir
         Aufnahme-Dokumente, Labor-Rolle und Fachbereichs-Rückfragen eigene Karten geben,
         und welche Aussage ganz oben steht.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================= DATENSCHUTZ ============================= -->
+  <!-- Icons zum Teil Platzhalter aus bestehendem Vorrat; finale Icon-Wahl im Design-Review. -->
+  <section id="pra-datenschutz">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Datenschutz und Datenablageort</span>
+        <h2>Rechtliche Grundlagen stehen bereit</h2>
+        <p>Was Ihre Praxis für den DSGVO-konformen Einsatz braucht — fertig vorbereitet,
+           belegbar, nachweisfähig.</p>
+      </div>
+
+      <div class="grid">
+        <article class="feat">
+          <img class="feat-icon" src="assets/neu/server.png" alt="">
+          <h3>Server in Deutschland</h3>
+          <p>Supabase EU-Region Frankfurt. TLS 1.3 im Transport, AES-256 bei Speicherung.
+             Die Versichertennummer wird je Praxis zusätzlich einzeln verschlüsselt.</p>
+          <span class="tag">EU-Rechenzentrum</span>
+        </article>
+
+        <article class="feat">
+          <img class="feat-icon" src="assets/neu/verschluesselung.png" alt="">
+          <h3>Fertiger AV-Vertrag</h3>
+          <p>Auftragsverarbeitungsvertrag nach Art. 28 DSGVO mit allen technisch-organisatorischen
+             Maßnahmen liegt vor — Sie müssen weder eigene Verträge entwerfen noch Dienstleister
+             einzeln prüfen.</p>
+          <span class="tag">AVV + Anhänge</span>
+        </article>
+
+        <article class="feat">
+          <img class="feat-icon" src="assets/icons/icon-arzt.png" alt="">
+          <h3>Zwei-Faktor-Pflicht</h3>
+          <p>Alle Cockpit-Konten — Sekretariat, Anfrage-Annahme, Ärztinnen, Ärzte, Assistenz —
+             sind zwei-Faktor-pflichtig. Keine Komfort-Option, sondern Standard.</p>
+          <span class="tag">Pflicht statt Option</span>
+        </article>
+
+        <article class="feat">
+          <img class="feat-icon" src="assets/neu/akut.png" alt="">
+          <h3>Datenpannen-Prozess etabliert</h3>
+          <p>Vorfall-Register nach Art. 33 Abs. 5 DSGVO geführt, Meldepflicht-Bewertung je
+             Vorfall. Falls etwas passiert, läuft die Benachrichtigung Ihrer Praxis entlang
+             eines definierten Pfads.</p>
+          <span class="tag">Art. 33 geführt</span>
+        </article>
+
+        <article class="feat">
+          <img class="feat-icon" src="assets/notizen/ruhe.png" alt="">
+          <h3>Klare Rollen</h3>
+          <p>KoliFoX verarbeitet Patient:innen-Anfragen in Ihrem Auftrag (Art. 28 DSGVO). Die
+             Behandlungsentscheidung bleibt vollständig bei Ihnen. Keine Mitnutzung Ihrer
+             Daten für Produktverbesserung.</p>
+          <span class="tag">Sie bleiben Verantwortliche</span>
+        </article>
+
+        <article class="feat">
+          <img class="feat-icon" src="assets/neu/kalender.png" alt="">
+          <h3>Automatische Löschfristen</h3>
+          <p>72 Stunden nach Entscheidung, maximal 7 Tage — danach gelöscht. Nachweis-Spuren
+             ohne medizinischen Inhalt bleiben drei Jahre für Nachprüfungen.</p>
+          <span class="tag">Keine Aufräumarbeit</span>
+        </article>
+      </div>
+
+      <p class="todo" style="margin-top:26px">
+        <strong>Noch zu besprechen:</strong> Icon-Zuordnung je Kachel finalisieren,
+        ob die „Klare Rollen"-Kachel direkt an „Fertiger AV-Vertrag" andocken soll,
+        und ob eine zusätzliche „Row-Level-Security"-Kachel sinnvoll ist (nur Ihre Praxis
+        sieht Ihre Anfragen).
       </p>
     </div>
   </section>
