@@ -1,0 +1,16 @@
+# kolifox.de
+#
+# Angelegt am 18.10.2026, nachdem die Google Search Console gemeldet hatte,
+# dass Seiten als Duplikat gelten (www und nicht-www liefern dasselbe).
+# Die Umleitung liegt in Cloudflare, der Kanon in den Seiten selbst -- hier
+# steht nur, was gecrawlt werden darf und wo die Seitenliste liegt.
+
+User-agent: *
+Allow: /
+
+# Entwuerfe: ueber das Web ohnehin nicht erreichbar (am 18.10. geprueft),
+# aber falls das Veroeffentlichen je den ganzen Ordner mitnimmt, sollen sie
+# nicht in der Suche landen.
+Disallow: /entwuerfe/
+
+Sitemap: https://kolifox.de/sitemap.xml

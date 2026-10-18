@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Seitenliste fuer kolifox.de, angelegt am 18.10.2026.
+
+  Nur die drei echten Seiten, jeweils unter der Adresse, die auch im
+  canonical der Seite steht: ohne www und ohne .html. Die Fehlerseite
+  gehoert nicht hierher, sie traegt noindex.
+
+  lastmod bitte mitpflegen, wenn sich eine Seite inhaltlich aendert --
+  ein falsches Datum ist schlechter als keines.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://kolifox.de/</loc>
+    <lastmod>2026-10-18</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://kolifox.de/impressum</loc>
+    <lastmod>2026-10-18</lastmod>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://kolifox.de/datenschutz</loc>
+    <lastmod>2026-10-18</lastmod>
+    <priority>0.3</priority>
+  </url>
+</urlset>
