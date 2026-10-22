@@ -647,7 +647,7 @@ section.sec-unten-eng { padding-bottom: 20px; }
   color: var(--brand-dark); font-size: clamp(20px, 3vw, 32px); font-weight: 800; letter-spacing: .02em;
 }
 
-/* Ueberschrift "Rechtliche Grundlagen stehen bereit" in einer Zeile: die Kopfbreite von 62ch
-   reichte dafuer nicht, der Fliesstext darunter behaelt seine Zeilenlaenge. */
-#pra-datenschutz .sec-head { max-width: none; }
-#pra-datenschutz .sec-head p { max-width: 62ch; }
+/* Ueberschrift "Rechtliche Grundlagen stehen bereit" und der Satz darunter je in einer Zeile:
+   die Kopfbreite von 62ch reichte dafuer nicht. Am Handy bricht beides von selbst um. */
+#pra-datenschutz .sec-head,
+#pra-datenschutz .sec-head p { max-width: none; }
