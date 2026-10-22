@@ -633,9 +633,12 @@ section.sec-unten-eng { padding-bottom: 20px; }
 
 /* Schleier ueber noch nicht geprueften Aussagen: Text "In Validierung", Deckkraft einstellbar.
    Hinweis: Der Schleier ist nur optisch, der Text darunter bleibt im HTML (Suchmaschinen, Screenreader). */
-.validierung { --validierung-deckkraft: 72%; position: relative; }
+/* Der Rahmen sitzt auf dem Innenabstand (12px) um die Karten, nicht ausserhalb: so haelt er denselben
+   Abstand zum Satz darueber wie die Karten im Block davor. Die Karten selbst rutschen 12px tiefer;
+   das entfaellt mit dem Schleier. (margin-top wuerde mit dem Abstand der Ueberschrift verschmelzen.) */
+.validierung { --validierung-deckkraft: 72%; position: relative; padding: 12px; margin: 0 -12px; }
 .validierung-rahmen {
-  position: absolute; inset: -12px; z-index: 2; border-radius: 22px;
+  position: absolute; inset: 0; z-index: 2; border-radius: 22px;
   display: flex; align-items: center; justify-content: center;
   background: color-mix(in srgb, var(--bg) var(--validierung-deckkraft), transparent);
   backdrop-filter: blur(1.5px);
