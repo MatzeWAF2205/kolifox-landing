@@ -13,7 +13,18 @@ const TYPES = {
   '.svg': 'image/svg+xml',
   '.png': 'image/png',
   '.ico': 'image/x-icon',
+  '.webp': 'image/webp',
+  '.gif': 'image/gif',
+  '.xml': 'application/xml; charset=utf-8',
+  '.txt': 'text/plain; charset=utf-8',
 };
+
+// Die Sicherheits-Header der Live-Seite (_headers) mitsenden, damit lokal unter derselben CSP geprueft wird.
+const HEADER = {};
+fs.readFileSync(path.join(ROOT, '_headers'), 'utf8').split(/\r?\n/).forEach(z => {
+  const m = z.match(/^\s+([A-Za-z-]+):\s*(.+)$/);
+  if (m) HEADER[m[1]] = m[2];
+});
 
 http.createServer((req, res) => {
   let urlPath = decodeURIComponent(req.url.split('?')[0]);
@@ -24,7 +35,7 @@ http.createServer((req, res) => {
   fs.readFile(filePath, (err, data) => {
     if (err) { res.writeHead(404); return res.end('Not found: ' + urlPath); }
     const ext = path.extname(filePath);
-    res.writeHead(200, { 'Content-Type': TYPES[ext] || 'application/octet-stream' });
+    res.writeHead(200, { 'Content-Type': TYPES[ext] || 'application/octet-stream', ...HEADER });
     res.end(data);
   });
 }).listen(PORT, () => console.log('kolifox-landing dev server on http://localhost:' + PORT));

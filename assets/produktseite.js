@@ -99,7 +99,7 @@
 
   screens.forEach((s, i) => {
     const img = document.createElement('img');
-    img.src = 'assets/screens/handy-serie/' + s.datei;
+    img.src = '/assets/screens/handy-serie/' + s.datei;
     img.alt = s.alt;
     if (i === 0) img.className = 'aktiv';
     if (i > 0) img.loading = 'lazy';   // erste Ansicht sofort, Rest bei Bedarf
@@ -141,7 +141,7 @@
       el.style.top = f.y + '%';
       if (f.kachel) {
         const bild = document.createElement('img');
-        bild.src = 'assets/' + f.kachel;
+        bild.src = '/assets/' + f.kachel;
         bild.alt = f.text;
         el.appendChild(bild);
         spalte[f.seite].appendChild(el);
@@ -150,7 +150,7 @@
       }
       if (f.icon) {
         const bild = document.createElement('img');
-        bild.src = 'assets/' + f.icon;
+        bild.src = '/assets/' + f.icon;
         bild.alt = '';
         el.appendChild(bild);
       }
@@ -216,7 +216,7 @@
     var html = '';
     for (var runde = 0; runde < 2; runde++) {
       siegel.forEach(function (name) {
-        html += '<img src="assets/fach/' + name + '.png" alt="" loading="lazy">';
+        html += '<img src="/assets/fach/' + name + '.png" alt="" loading="lazy">';
       });
     }
     el.innerHTML = html;
