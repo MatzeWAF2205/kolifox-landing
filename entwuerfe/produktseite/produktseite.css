@@ -646,3 +646,8 @@ section.sec-unten-eng { padding-bottom: 20px; }
   background: var(--card); border: 1px solid var(--border); box-shadow: var(--shadow);
   color: var(--brand-dark); font-size: clamp(20px, 3vw, 32px); font-weight: 800; letter-spacing: .02em;
 }
+
+/* Ueberschrift "Rechtliche Grundlagen stehen bereit" in einer Zeile: die Kopfbreite von 62ch
+   reichte dafuer nicht, der Fliesstext darunter behaelt seine Zeilenlaenge. */
+#pra-datenschutz .sec-head { max-width: none; }
+#pra-datenschutz .sec-head p { max-width: 62ch; }
