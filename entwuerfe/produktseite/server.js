@@ -6,6 +6,14 @@ const path = require('path');
 const ROOT = __dirname;
 const PORT = 4321;
 
+// Die Sicherheits-Header der Live-Seite (../../_headers) mitsenden, damit der Entwurf
+// unter derselben CSP geprueft wird wie spaeter auf kolifox.de.
+const HEADER = {};
+fs.readFileSync(path.join(__dirname, '..', '..', '_headers'), 'utf8').split(/\r?\n/).forEach(z => {
+  const m = z.match(/^\s+([A-Za-z-]+):\s*(.+)$/);
+  if (m) HEADER[m[1]] = m[2];
+});
+
 const TYPEN = {
   '.html': 'text/html; charset=utf-8',
   '.css': 'text/css; charset=utf-8',
@@ -31,6 +39,7 @@ http.createServer((req, res) => {
     res.writeHead(200, {
       'Content-Type': TYPEN[path.extname(datei).toLowerCase()] || 'application/octet-stream',
       'Cache-Control': 'no-store',
+      ...HEADER,
     });
     res.end(buf);
   });
