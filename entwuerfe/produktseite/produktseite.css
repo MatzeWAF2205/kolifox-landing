@@ -57,9 +57,11 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--focus); outline
 }
 /* Vertrauenszeile statt Siegel-Bild: nuechterner Text, kein Pruefsiegel-Eindruck (DSGVO-Chat 22.10.) */
 .head-vertrauen {
-  margin: 0; max-width: 330px; text-align: center; line-height: 1.4;
+  list-style: none; margin: 0; padding: 0; line-height: 1.45;
   font-size: 14px; font-weight: 600; color: var(--brand-dark);
 }
+.head-vertrauen li { white-space: nowrap; }
+.head-vertrauen li::before { content: "✓"; color: var(--brand); margin-right: 8px; }
 .head-spacer { flex: 1 1 auto; }
 
 /* Ansichts-Umschalter */
