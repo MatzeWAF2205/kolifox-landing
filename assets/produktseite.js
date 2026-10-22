@@ -1,3 +1,10 @@
+// ---- Pilot-Hinweis: schliessen ohne Speicher-Zugriff ----
+(function () {
+  var band = document.getElementById('pilot-hinweis');
+  var zu = document.getElementById('pilot-zu');
+  if (band && zu) zu.addEventListener('click', function () { band.hidden = true; });
+})();
+
 // ---- Ansichts-Umschalter (Patienten / Praxen), teilbar per #praxen ----
 (function () {
   var tabs = { pat: document.getElementById('tab-pat'), pra: document.getElementById('tab-pra') };

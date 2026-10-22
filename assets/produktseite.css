@@ -633,3 +633,22 @@ section.sec-unten-eng { padding-bottom: 20px; }
   .tour.logo-links .fahne.kachel { width: calc(100% - 32px); max-width: 420px; margin: 0 auto; }
 }
 
+
+/* Pilot-Hinweis ganz oben: bewusst nicht Markengruen, damit er als Hinweis und nicht als Teil des Kopfs gelesen wird. */
+.pilot-hinweis {
+  position: relative; background: #fff3d6; color: #6b4300; border-bottom: 1px solid #f0d594;
+  font-size: 14px; line-height: 1.35; text-align: center; padding: 7px 44px;
+}
+.pilot-hinweis[hidden] { display: none; }
+.pilot-zu {
+  position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+  appearance: none; border: 0; background: transparent; color: inherit; cursor: pointer;
+  font: inherit; font-size: 22px; line-height: 1; padding: 2px 8px; border-radius: 6px;
+}
+.pilot-zu:hover { background: rgba(107, 67, 0, .12); }
+.pilot-zu:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .pilot-hinweis { background: #2b2412; color: #f0d594; border-bottom-color: #4a3d1a; }
+  :root:not([data-theme="light"]) .pilot-zu:hover { background: rgba(240, 213, 148, .15); }
+}
+:root[data-theme="dark"] .pilot-hinweis { background: #2b2412; color: #f0d594; border-bottom-color: #4a3d1a; }
