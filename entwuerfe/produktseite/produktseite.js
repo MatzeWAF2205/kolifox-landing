@@ -48,7 +48,7 @@
     // (kachel = Bild unter assets/, Text steckt im Bild, deshalb steht er als alt
     // hier). Sie sind hoeher als Fahnen; "y" ist die Mitte der Kachel und so
     // gewaehlt, dass sie sich nicht ueberlappen — die Reihenfolge entspricht der
-    // der Knoepfe im Handy. Die Meldungen-Kachel fehlt noch: bis dahin die Fahne.
+    // der Knoepfe im Handy.
     { datei: '01-start.webp', titel: 'KoliFoX-Hauptscreen', alt: 'Startansicht der KoliFoX-App mit Suche, Dringender Anfrage, AU-Anfrage, Überweisungs-Anfrage und Meldungen für den Kreis',
       fahnen: [
         { seite: 'rechts', y: 21, kachel: 'kacheln/suche.webp',
@@ -59,7 +59,8 @@
           text: 'Arbeitsunfähigkeit. Erhalte schnell einen Termin bei Arbeitsunfähigkeit.' },
         { seite: 'links',  y: 61, kachel: 'kacheln/ueberweisung.webp',
           text: 'Überweisung. Bekomme schnell einen Folgetermin im Rahmen einer Überweisung. Anfrage an passende Praxen im relevanten Fachbereich.' },
-        { seite: 'rechts', y: 80,   icon: 'neu/meldungen.webp',   text: 'UV, Pollen, Hitze und RKI aus deiner Region' },
+        { seite: 'rechts', y: 81, kachel: 'kacheln/meldungen.webp',
+          text: 'Meldungen aus deiner Region. Erhalte gesundheitsrelevante Meldungen wie UV-Meldungen, Pollen, RKI usw.' },
       ] },
     { datei: '02-suchen.webp', titel: 'KoliFoX-Suche', alt: 'Suchen-Menü mit Beschwerden-Check, Arzt- und Apothekensuche',
       fahnen: [
@@ -128,6 +129,10 @@
   });
 
   function fahnenSetzen(s) {
+    // Kacheln sind unterschiedlich hoch und wachsen mit der Spaltenbreite: sie werden
+    // deshalb untereinander gestapelt statt auf eine feste Hoehe gesetzt (siehe CSS .kacheln).
+    ['links', 'rechts'].forEach(seite =>
+      spalte[seite].classList.toggle('kacheln', s.fahnen.some(f => f.kachel && f.seite === seite)));
     spalte.links.innerHTML = '';
     if (spalte.rechts !== spalte.links) spalte.rechts.innerHTML = '';
     s.fahnen.forEach((f, n) => {

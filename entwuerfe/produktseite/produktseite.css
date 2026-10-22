@@ -611,6 +611,17 @@ section.sec-unten-eng { padding-bottom: 20px; }
   display: block; width: 100%; height: auto;
   filter: drop-shadow(0 10px 16px rgba(16, 24, 40, .26));
 }
+/* Spalte mit Kacheln: untereinander gestapelt, links mittig, rechts ueber die ganze Hoehe.
+   Die Hoehe einer Kachel haengt von der Spaltenbreite ab; feste Prozenthoehen wie bei den
+   Fahnen wuerden sich je nach Fenstergroesse ueberlappen. */
+.tour-spalte.kacheln { display: flex; flex-direction: column; gap: 14px; }
+.tour-spalte.links.kacheln  { justify-content: center; align-items: flex-end; }
+.tour-spalte.rechts.kacheln { justify-content: space-between; align-items: flex-start; }
+.tour.logo-links .tour-spalte.kacheln .fahne.kachel {
+  position: static; max-width: 320px; transform: translateY(8px);
+}
+.tour.logo-links .tour-spalte.kacheln .fahne.kachel.sichtbar { transform: none; }
+
 @media (max-width: 900px) {
   /* untereinander statt am Handy: die Verschiebung um die halbe Hoehe gilt nur fuer
      die Fahnen im Raster, sonst ruecken die hohen Kacheln ins Handy hinein */
