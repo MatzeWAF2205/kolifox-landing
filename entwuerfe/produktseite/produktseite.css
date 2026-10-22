@@ -579,15 +579,6 @@ section { padding: 56px 0; }
 /* Ansichten */
 .view[hidden] { display: none; }
 
-/* Entwurfs-Hinweis */
-.draft {
-  background: #fffbeb; border-bottom: 1px solid #fcd34d; color: #78350f;
-  font-size: 13.5px; padding: 9px 0;
-}
-:root[data-theme="dark"] .draft, @media (prefers-color-scheme: dark) { }
-.draft strong { font-weight: 700; }
-.todo { border-left: 3px solid var(--mint); padding-left: 14px; color: var(--muted); font-size: 15px; }
-
 /* Das Siegel braucht Breite; darunter bleibt es weg, damit der Umschalter Platz hat. */
 @media (max-width: 1100px) { .head-badge { display: none; } }
 
@@ -607,7 +598,6 @@ section.sec-unten-eng { padding-bottom: 20px; }
 .sec-head.sec-head-mitte { max-width: none; text-align: center; margin-bottom: 26px; }
 .sec-head.sec-head-mitte h2 { margin-bottom: 6px; }
 .sec-head.sec-head-mitte p { margin: 0 auto; max-width: 56ch; }
-.todo.todo-abstand { margin-top: 26px; }
 .site-footer .wrap.footer-zeile { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; width: 100%; }
 
 /* Kachel statt Fahne (Hauptscreen): das Bild bringt Karte, Farbe und Text selbst mit.
