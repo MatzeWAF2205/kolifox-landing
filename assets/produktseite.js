@@ -1,3 +1,47 @@
+// ---- Kopf bleibt oben; ab einer Scrolltiefe kompakt ----
+// Der Kopf liegt im Fluss der Seite (sticky). Wird er kompakt, wuerde er kleiner und der ganze Inhalt
+// darunter ruckt nach oben, das verschiebt Sprungmarken. Deshalb gleicht ein Aussenabstand den Hoehen-
+// unterschied aus; erst wenn der urspruengliche Kopfbereich aus dem Bild gescrollt ist (ab 170 px),
+// wird kompakt geschaltet. Schwellen 170/150 gegen Flackern.
+(function () {
+  var kopf = document.getElementById('kopf-fix');
+  if (!kopf) return;
+  var kompakt = false;
+  var ausgleich = 0;
+  function messen() {
+    kopf.classList.add('misst');
+    var war = kopf.classList.contains('kompakt');
+    kopf.classList.remove('kompakt');
+    kopf.style.marginBottom = '';
+    var voll = kopf.offsetHeight;
+    kopf.classList.add('kompakt');
+    var klein = kopf.offsetHeight;
+    ausgleich = Math.max(0, voll - klein);
+    kopf.classList.toggle('kompakt', war);
+    kopf.style.marginBottom = war ? ausgleich + 'px' : '';
+    void kopf.offsetHeight; // Zustand ohne Uebergang festschreiben, bevor 'misst' wieder wegfaellt
+    kopf.classList.remove('misst');
+  }
+  function setzen(an) {
+    if (an === kompakt) return;
+    kompakt = an;
+    kopf.classList.toggle('kompakt', an);
+    kopf.style.marginBottom = an ? ausgleich + 'px' : '';
+  }
+  function pruefen() {
+    var y = window.pageYOffset || document.documentElement.scrollTop;
+    if (y > 170) setzen(true);
+    else if (y < 150) setzen(false);
+  }
+  messen();
+  window.addEventListener('scroll', pruefen, { passive: true });
+  window.addEventListener('resize', function () { messen(); pruefen(); });
+  document.addEventListener('click', function (e) {
+    if (e.target && e.target.id === 'pilot-zu') setTimeout(function () { messen(); }, 0);
+  });
+  pruefen();
+})();
+
 // ---- Pilot-Hinweis: schliessen ohne Speicher-Zugriff ----
 (function () {
   var band = document.getElementById('pilot-hinweis');

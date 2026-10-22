@@ -42,6 +42,10 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--focus); outline
 .wrap { max-width: 1400px; margin: 0 auto; padding: 0 16px; }
 
 /* ---------- Kopf ---------- */
+/* Hinweisband und Kopf bleiben oben stehen. Beim Scrollen wird der Kopf kompakt (kleineres Logo,
+   kleinere Pill, ohne Slogan), damit er nicht ein Fuenftel des Bildschirms belegt. */
+.kopf-fix { position: sticky; top: 0; z-index: 30; }
+html { scroll-padding-top: 120px; }
 .site-head {
   position: relative; z-index: 20; background: color-mix(in srgb, var(--bg) 88%, transparent);
   backdrop-filter: blur(10px); border-bottom: 1px solid var(--border);
@@ -655,3 +659,19 @@ section.sec-unten-eng { padding-bottom: 20px; }
   :root:not([data-theme="light"]) .pilot-zu:hover { background: rgba(240, 213, 148, .15); }
 }
 :root[data-theme="dark"] .pilot-hinweis { background: #2b2412; color: #f0d594; border-bottom-color: #4a3d1a; }
+
+.head-logo, .head-badge { transition: height .2s ease; }
+.kopf-fix.misst .head-logo, .kopf-fix.misst .head-badge { transition: none; }
+.kopf-fix.kompakt .head-row { padding: 6px 0; }
+.kopf-fix.kompakt .head-logo { height: 46px; }
+.kopf-fix.kompakt .head-slogan { display: none; }
+.kopf-fix.kompakt .head-badge { height: 44px; }
+@media (max-width: 720px) {
+  .kopf-fix.kompakt .head-logo { height: 38px; }
+  /* kompakt am Handy: Logo und Umschalter in einer Zeile statt zwei */
+  .kopf-fix.kompakt .head-row { flex-wrap: nowrap; gap: 8px; }
+  .kopf-fix.kompakt .switch { order: 0; width: auto; flex: 1 1 auto; }
+  .kopf-fix.kompakt .switch button { padding: 7px 6px; font-size: 14px; }
+  html { scroll-padding-top: 150px; }
+}
+@media (prefers-reduced-motion: reduce) { .head-logo, .head-badge { transition: none; } }
