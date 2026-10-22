@@ -630,3 +630,19 @@ section.sec-unten-eng { padding-bottom: 20px; }
   .tour .fahne, .tour .fahne.sichtbar { transform: none; }
   .tour.logo-links .fahne.kachel { width: calc(100% - 32px); max-width: 420px; margin: 0 auto; }
 }
+
+/* Schleier ueber noch nicht geprueften Aussagen: Text "In Validierung", Deckkraft einstellbar.
+   Hinweis: Der Schleier ist nur optisch, der Text darunter bleibt im HTML (Suchmaschinen, Screenreader). */
+.validierung { --validierung-deckkraft: 72%; position: relative; }
+.validierung-rahmen {
+  position: absolute; inset: -12px; z-index: 2; border-radius: 22px;
+  display: flex; align-items: center; justify-content: center;
+  background: color-mix(in srgb, var(--bg) var(--validierung-deckkraft), transparent);
+  backdrop-filter: blur(1.5px);
+  border: 2px dashed var(--brand);
+}
+.validierung-rahmen span {
+  padding: 12px 30px; border-radius: 999px;
+  background: var(--card); border: 1px solid var(--border); box-shadow: var(--shadow);
+  color: var(--brand-dark); font-size: clamp(20px, 3vw, 32px); font-weight: 800; letter-spacing: .02em;
+}
