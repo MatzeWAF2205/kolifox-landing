@@ -529,6 +529,9 @@ section { padding: 56px 0; }
 .feat-icon {
   width: 46px; height: 46px; object-fit: contain; margin-bottom: 14px; display: block;
 }
+/* Platzhalter, bis ein passendes Icon da ist (Karten "Fertiger AV-Vertrag" und "Zwei-Faktor-Anmeldung"):
+   haelt die Hoehe, damit die Ueberschriften in der Reihe auf einer Linie bleiben. */
+.feat-icon-platz { display: block; width: 46px; height: 46px; margin-bottom: 14px; }
 .feat h3 { font-size: 18px; margin: 0 0 8px; letter-spacing: -.01em; }
 .feat p { margin: 0; color: var(--muted); font-size: 15px; }
 .feat .tag {
