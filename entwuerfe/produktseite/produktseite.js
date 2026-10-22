@@ -60,7 +60,7 @@
         { seite: 'links',  y: 61, kachel: 'kacheln/ueberweisung.webp',
           text: 'Überweisung. Bekomme schnell einen Folgetermin im Rahmen einer Überweisung. Anfrage an passende Praxen im relevanten Fachbereich.' },
         { seite: 'rechts', y: 81, kachel: 'kacheln/meldungen.webp',
-          text: 'Meldungen aus deiner Region. Erhalte gesundheitsrelevante Meldungen wie UV-Meldungen, Pollen, RKI usw.' },
+          text: 'Meldungen aus deiner Region. Erhalte gesundheitsrelevante Meldungen wie UV-Meldungen, Pollen, Hitze, RKI usw.' },
       ] },
     { datei: '02-suchen.webp', titel: 'KoliFoX-Suche', alt: 'Suchen-Menü mit Beschwerden-Check, Arzt- und Apothekensuche',
       fahnen: [
