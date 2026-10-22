@@ -450,6 +450,12 @@ section { padding: 56px 0; }
 .feat.k-ueberweisung p    { color: #7a4a2c; }
 .feat.k-ueberweisung .tag { background: #fed7aa; color: #9a3412; }
 
+.feat.k-meldungen      { background: #dcfce7; border-color: #86efac; }
+.feat.k-meldungen::after { background: linear-gradient(90deg, #4ade80, #166534); }
+.feat.k-meldungen h3   { color: #166534; }
+.feat.k-meldungen p    { color: #2f5a3d; }
+.feat.k-meldungen .tag { background: #bbf7d0; color: #166534; }
+
 /* Aufkleber auf farbigem Grund: heller Papierton, damit er sich abhebt */
 .feat.k-dringend .au-sticker     { background: #fff6f6; border-color: #b91c1c; color: #b91c1c; }
 .feat.k-au .au-sticker           { background: #fffdf2; border-color: #b91c1c; color: #92400e; }
@@ -465,6 +471,9 @@ section { padding: 56px 0; }
   :root:not([data-theme="light"]) .feat.k-ueberweisung    { background: #2b2018; border-color: #4a3628; }
   :root:not([data-theme="light"]) .feat.k-ueberweisung p  { color: #cfb49a; }
   :root:not([data-theme="light"]) .feat.k-ueberweisung h3 { color: #f0a76b; }
+  :root:not([data-theme="light"]) .feat.k-meldungen    { background: #17261c; border-color: #2a4533; }
+  :root:not([data-theme="light"]) .feat.k-meldungen p  { color: #a9c9b3; }
+  :root:not([data-theme="light"]) .feat.k-meldungen h3 { color: #6fd08c; }
 }
 
 /* Der Aufkleber selbst — Papiergelb, roter Rand, leicht schief wie aufgeklebt */
@@ -673,7 +682,7 @@ section { padding: 56px 0; }
     <div class="wrap">
       <div class="sec-head">
         <span class="eyebrow">Was du damit tun kannst</span>
-        <h2>Acht Dinge, die dir den Arztbesuch erleichtern</h2>
+        <h2>Neun Dinge, die dir den Arztbesuch erleichtern</h2>
         <p>Alles in einer Anwendung, ohne Wechsel zwischen Portalen — und ohne Anruf in der Praxis.</p>
       </div>
 
@@ -742,7 +751,7 @@ section { padding: 56px 0; }
           <h3>Überweisungs-Anfrage</h3>
           <p>Du hast einen Überweisungsschein? Fotografiere ihn ab und sende ihn an eine
              Praxis der überwiesenen Fachrichtung — ohne Umweg.</p>
-          <span class="tag">In Vorbereitung</span>
+          <span class="tag">Neu</span>
           <span class="au-sticker">
             <span class="au-sticker-klein">Überweisung?</span>
             <span class="au-sticker-gross">
@@ -755,9 +764,17 @@ section { padding: 56px 0; }
 
       </div>
 
-      <!-- Zweite Reihe, bewusst nur zweispaltig: die beiden Punkte gelten fuer
-           alle Anfragearten darueber, nicht fuer eine einzelne. -->
-      <div class="grid zwei">
+      <!-- Dritte Reihe: Meldungen (eigener Knopf auf dem Startbildschirm) sowie
+           Verschluesselung und Protokoll, die fuer alle Anfragearten darueber gelten. -->
+      <div class="grid">
+        <article class="feat k-meldungen">
+          <img class="feat-icon" src="assets/neu/meldungen.webp" alt="">
+          <h3>Meldungen für deine Region</h3>
+          <p>Pollenflug, UV-Index, Hitzewarnungen und Meldungen des RKI — ein Tipp auf den
+             Knopf „Meldungen“ auf dem Startbildschirm.</p>
+          <span class="tag">Neu</span>
+        </article>
+
         <article class="feat">
           <img class="feat-icon" src="assets/neu/verschluesselung.png" alt="">
           <h3>Verschlüsselt übertragen</h3>
@@ -1166,11 +1183,16 @@ section { padding: 56px 0; }
   // (34 px Gehaeuserand oben, 565 px Bildschirm, Einblendbereich ab 20,8 %).
   // Zum Feinjustieren genuegt es, die Zahl hier zu aendern.
   const screens = [
-    { datei: '01-start.webp', titel: 'KoliFoX-Hauptscreen', alt: 'Startansicht der KoliFoX-App',
+    // Hoehen am neuen Bild (592x841) gemessen: Suchen 10,5 %, Dringend 38,3 %,
+    // AU 53,2 %, Ueberweisung 68,3 %, Meldungen 88,8 % des Bildes — umgerechnet
+    // mit der Formel oben. Texte aus dem One-Pager, gekuerzt.
+    { datei: '01-start.webp', titel: 'KoliFoX-Hauptscreen', alt: 'Startansicht der KoliFoX-App mit Suche, Dringender Anfrage, AU-Anfrage, Überweisungs-Anfrage und Meldungen für den Kreis',
       fahnen: [
-        { seite: 'rechts', y: 31, text: 'Fachbereich, Arzt oder Apotheke suchen' },
-        { seite: 'links',  y: 40, icon: 'neu/akut.png', text: 'Du brauchst heute einen Arzt' },
-        { seite: 'rechts', y: 50, icon: 'neu/au.png',   text: 'Du brauchst eine Krankschreibung' },
+        { seite: 'rechts', y: 31,   text: 'KI-Check, Arzt und Apotheke finden' },
+        { seite: 'links',  y: 48.5, icon: 'neu/akut.png',         text: 'Einfach und schnell zum Arzttermin' },
+        { seite: 'rechts', y: 58,   icon: 'neu/au.png',           text: 'Schnell einen Termin bei Arbeitsunfähigkeit' },
+        { seite: 'links',  y: 67.5, icon: 'neu/ueberweisung.png', text: 'Folgetermin im Rahmen einer Überweisung' },
+        { seite: 'rechts', y: 80,   icon: 'neu/meldungen.webp',   text: 'UV, Pollen, Hitze und RKI aus deiner Region' },
       ] },
     { datei: '02-suchen.webp', titel: 'KoliFoX-Suche', alt: 'Suchen-Menü mit Beschwerden-Check, Arzt- und Apothekensuche',
       fahnen: [
