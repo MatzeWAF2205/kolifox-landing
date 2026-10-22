@@ -44,15 +44,21 @@
   // (34 px Gehaeuserand oben, 565 px Bildschirm, Einblendbereich ab 20,8 %).
   // Zum Feinjustieren genuegt es, die Zahl hier zu aendern.
   const screens = [
-    // Hoehen am neuen Bild (592x841) gemessen: Suchen 10,5 %, Dringend 38,3 %,
-    // AU 53,2 %, Ueberweisung 68,3 %, Meldungen 88,8 % des Bildes — umgerechnet
-    // mit der Formel oben. Texte aus dem One-Pager, gekuerzt.
+    // Auf dem Hauptscreen stehen die Kacheln aus dem One-Pager statt der Fahnen
+    // (kachel = Bild unter assets/, Text steckt im Bild, deshalb steht er als alt
+    // hier). Sie sind hoeher als Fahnen; "y" ist die Mitte der Kachel und so
+    // gewaehlt, dass sie sich nicht ueberlappen — die Reihenfolge entspricht der
+    // der Knoepfe im Handy. Die Meldungen-Kachel fehlt noch: bis dahin die Fahne.
     { datei: '01-start.webp', titel: 'KoliFoX-Hauptscreen', alt: 'Startansicht der KoliFoX-App mit Suche, Dringender Anfrage, AU-Anfrage, Überweisungs-Anfrage und Meldungen für den Kreis',
       fahnen: [
-        { seite: 'rechts', y: 31,   text: 'KI-Check, Arzt und Apotheke finden' },
-        { seite: 'links',  y: 48.5, icon: 'neu/akut.png',         text: 'Einfach und schnell zum Arzttermin' },
-        { seite: 'rechts', y: 58,   icon: 'neu/au.png',           text: 'Schnell einen Termin bei Arbeitsunfähigkeit' },
-        { seite: 'links',  y: 67.5, icon: 'neu/ueberweisung.png', text: 'Folgetermin im Rahmen einer Überweisung' },
+        { seite: 'rechts', y: 21, kachel: 'kacheln/suche.webp',
+          text: 'Suche. KI-Beschwerde-Check: Wenn deine Beschwerden noch unspezifisch sind, hilft dir die KI bei der Auswahl des richtigen Fachbereichs. Finde deine Apotheke bei über 17.000 Apotheken. Finde deine Praxis unter mehr als 58.000 gelisteten Ärzten.' },
+        { seite: 'links',  y: 29, kachel: 'kacheln/akut.webp',
+          text: 'Akutfall. Bekomme einfach und schnell einen Termin beim Arzt – unkompliziert bei Beschwerden.' },
+        { seite: 'rechts', y: 55.5, kachel: 'kacheln/au.webp',
+          text: 'Arbeitsunfähigkeit. Erhalte schnell einen Termin bei Arbeitsunfähigkeit.' },
+        { seite: 'links',  y: 61, kachel: 'kacheln/ueberweisung.webp',
+          text: 'Überweisung. Bekomme schnell einen Folgetermin im Rahmen einer Überweisung. Anfrage an passende Praxen im relevanten Fachbereich.' },
         { seite: 'rechts', y: 80,   icon: 'neu/meldungen.webp',   text: 'UV, Pollen, Hitze und RKI aus deiner Region' },
       ] },
     { datei: '02-suchen.webp', titel: 'KoliFoX-Suche', alt: 'Suchen-Menü mit Beschwerden-Check, Arzt- und Apothekensuche',
@@ -126,8 +132,17 @@
     if (spalte.rechts !== spalte.links) spalte.rechts.innerHTML = '';
     s.fahnen.forEach((f, n) => {
       const el = document.createElement('div');
-      el.className = 'fahne' + (f.leise ? ' leise' : '');
+      el.className = 'fahne' + (f.leise ? ' leise' : '') + (f.kachel ? ' kachel' : '');
       el.style.top = f.y + '%';
+      if (f.kachel) {
+        const bild = document.createElement('img');
+        bild.src = 'assets/' + f.kachel;
+        bild.alt = f.text;
+        el.appendChild(bild);
+        spalte[f.seite].appendChild(el);
+        merken(() => el.classList.add('sichtbar'), FAHNE_KOMMT + n * FAHNE_ABSTAND);
+        return;
+      }
       if (f.icon) {
         const bild = document.createElement('img');
         bild.src = 'assets/' + f.icon;
