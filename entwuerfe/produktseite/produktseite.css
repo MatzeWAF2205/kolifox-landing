@@ -55,7 +55,11 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--focus); outline
   font-size: 14px; font-weight: 600; letter-spacing: .02em; color: var(--brand-dark);
   white-space: nowrap;
 }
-.head-badge { height: 62px; width: auto; display: block; }
+/* Vertrauenszeile statt Siegel-Bild: nuechterner Text, kein Pruefsiegel-Eindruck (DSGVO-Chat 22.10.) */
+.head-vertrauen {
+  margin: 0; max-width: 330px; text-align: center; line-height: 1.4;
+  font-size: 14px; font-weight: 600; color: var(--brand-dark);
+}
 .head-spacer { flex: 1 1 auto; }
 
 /* Ansichts-Umschalter */
@@ -579,8 +583,8 @@ section { padding: 56px 0; }
 /* Ansichten */
 .view[hidden] { display: none; }
 
-/* Das Siegel braucht Breite; darunter bleibt es weg, damit der Umschalter Platz hat. */
-@media (max-width: 1100px) { .head-badge { display: none; } }
+/* Die Vertrauenszeile braucht Breite; darunter bleibt es weg, damit der Umschalter Platz hat. */
+@media (max-width: 1100px) { .head-vertrauen { display: none; } }
 
 @media (max-width: 720px) {
   .head-row { flex-wrap: wrap; gap: 10px; }
