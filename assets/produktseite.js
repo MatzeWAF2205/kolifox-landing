@@ -1,3 +1,43 @@
+// ---- Login-Knoepfe: Schalter fuer die Pilotphase ----
+// LOGIN_LINKS_AKTIV = false (jetzt): Alle Knoepfe zu App und Cockpit-Login fuehren NICHT zum Login, sondern
+// zeigen den Hinweis "Testversion" (#testversion). Nach "Verstanden" bleibt man auf der Seite.
+// LOGIN_LINKS_AKTIV = true (Pilotstart): nur diese Zeile auf true stellen, dann gehen alle Knoepfe wieder
+// zum Login. Die Ziele stehen in data-login an den Knoepfen (index.html) und in der Umschaltung unten.
+var LOGIN_LINKS_AKTIV = false;
+window.kfLoginZiel = function (el, url) {
+  el.setAttribute('data-login', url);
+  el.setAttribute('href', LOGIN_LINKS_AKTIV ? url : '#testversion');
+};
+(function () {
+  var modal = document.getElementById('testversion');
+  var zu = document.getElementById('testversion-zu');
+  if (!modal || !zu) return;
+  var ausloeser = null;
+  document.querySelectorAll('a[data-login]').forEach(function (a) {
+    window.kfLoginZiel(a, a.getAttribute('data-login'));
+  });
+  function schliessen() {
+    modal.hidden = true;
+    document.body.classList.remove('modal-offen');
+    if (ausloeser) { ausloeser.focus(); ausloeser = null; }
+  }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest ? e.target.closest('a[data-login]') : null;
+    if (!a || LOGIN_LINKS_AKTIV) return;
+    e.preventDefault();
+    ausloeser = a;
+    modal.hidden = false;
+    document.body.classList.add('modal-offen');
+    zu.focus();
+  });
+  zu.addEventListener('click', schliessen);
+  document.addEventListener('keydown', function (e) {
+    if (modal.hidden) return;
+    if (e.key === 'Escape') schliessen();
+    else if (e.key === 'Tab') { e.preventDefault(); zu.focus(); } // einziger Bedienpunkt im Fenster
+  });
+})();
+
 // ---- Kopf bleibt oben; ab einer Scrolltiefe kompakt ----
 // Der Kopf liegt im Fluss der Seite (sticky). Wird er kompakt, wuerde er kleiner und der ganze Inhalt
 // darunter ruckt nach oben, das verschiebt Sprungmarken. Deshalb gleicht ein Aussenabstand den Hoehen-
@@ -63,10 +103,10 @@
     });
     if (which === 'pra') {
       cta.textContent = 'Praxis-Login';
-      cta.href = 'https://cockpit.kolifox.de/login';
+      window.kfLoginZiel(cta, 'https://cockpit.kolifox.de/login');
     } else {
       cta.textContent = 'Zur App';
-      cta.href = 'https://app.kolifox.de';
+      window.kfLoginZiel(cta, 'https://app.kolifox.de');
     }
     if (push) history.replaceState(null, '', which === 'pra' ? '#praxen' : '#patienten');
     window.scrollTo({ top: 0, behavior: 'smooth' });
