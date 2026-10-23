@@ -93,8 +93,14 @@ html { scroll-padding-top: 120px; }
    Loch x=34 y=27 b=624 h=1235 (Rand links/rechts 34, oben 27, unten 31 px). */
 .phone {
   justify-self: center; position: relative; width: 273px; max-width: 100%;
-  aspect-ratio: 691 / 1293; border-radius: 12% / 6.4%;
-  box-shadow: 0 34px 50px -26px rgba(16,24,40,.55), 0 2px 8px rgba(16,24,40,.2);
+  aspect-ratio: 691 / 1293;
+}
+/* Schatten in Form des Gehaeuses: zweite Kopie des Rahmens UNTER dem Bildschirm, nur mit drop-shadow.
+   (Ein box-shadow haette die rechteckige Box mit abgerundeten Ecken beschattet und um das Handy eine
+   helle "Platte" gelassen.) Die Kopie selbst wird vom Bildschirm und dem oberen Rahmen verdeckt. */
+.phone > img.rahmen-schatten {
+  position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none;
+  filter: drop-shadow(0 28px 22px rgba(16,24,40,.38)) drop-shadow(0 2px 5px rgba(16,24,40,.28));
 }
 .phone > img.rahmen {
   position: absolute; inset: 0; width: 100%; height: 100%; z-index: 10; pointer-events: none;
@@ -109,7 +115,7 @@ html { scroll-padding-top: 120px; }
    was dadurch ueberstuende, liegt unter dem undurchsichtigen Gehaeuse. */
 .loch {
   position: absolute; left: 4.92%; top: 2.09%; width: 90.3%; height: 95.51%;
-  overflow: hidden; border-radius: 7% / 3.6%;
+  overflow: hidden; border-radius: 7% / 3.6%; z-index: 1;
 }
 .screen {
   position: absolute; top: 0; height: 100%; aspect-ratio: 600 / 1129;
