@@ -554,15 +554,27 @@
   </div>
 </footer>
 
-<!-- Testversion-Hinweis: erscheint beim Klick auf die Login-Knoepfe, solange LOGIN_LINKS_AKTIV in
-     assets/produktseite.js auf false steht. Wortlaut wie der App-Testhinweis (shared/lib/testhinweis.js). -->
-<div class="testmodal" id="testversion" role="dialog" aria-modal="true" aria-labelledby="testversion-titel" hidden>
-  <div class="testmodal-karte">
-    <h2 id="testversion-titel">Diese App ist eine Testversion</h2>
-    <p>Du testest eine Vorabversion von KoliFoX. Die hinterlegten Praxen sind Testpraxen – Anfragen,
-       Termine und Dokumente sind nicht echt und werden von niemandem bearbeitet. Für eine Behandlung
-       wende dich bitte direkt an deine Praxis. In einem Notfall wähle 112.</p>
-    <button type="button" class="btn btn-primary testmodal-zu" id="testversion-zu">Verstanden</button>
+<!-- Hinweisfenster fuer die Login-Knoepfe, solange LOGIN_LINKS_AKTIV in assets/produktseite.js auf false
+     steht. Zwei Fassungen: Patienten (Knoepfe zur App, Du-Form) und Praxen (Knoepfe zum Cockpit-Login,
+     Sie-Form). Wortlaut vom DSGVO-Chat, 23.10.2026; Zeitpunkt bewusst nur "in Kuerze". -->
+<div class="testmodal" id="testversion" role="dialog" aria-modal="true" hidden>
+  <div class="testmodal-karte" data-fuer="patienten" hidden>
+    <h2 id="testversion-titel-pat">KoliFoX ist noch nicht offen</h2>
+    <p>Du hast KoliFoX gerade entdeckt — danke dafür. Wir sind in der Pilotphase und öffnen die App in
+       Kürze für alle. Bis dahin bleibt die Anmeldung geschlossen.</p>
+    <p>Schau gern wieder vorbei, oder lass dir hier auf der Seite in Ruhe zeigen, wie KoliFoX
+       funktionieren wird.</p>
+    <button type="button" class="btn btn-primary testmodal-zu">Alles klar</button>
+  </div>
+  <div class="testmodal-karte" data-fuer="praxen" hidden>
+    <h2 id="testversion-titel-pra">Zugang startet mit dem Pilot</h2>
+    <p>KoliFoX befindet sich derzeit in der Pilotphase. Der Zugang zum Praxis-Cockpit ist bis zum
+       Pilotstart für neue Praxen gesperrt.</p>
+    <p>Wenn Sie Ihre Praxis in der Pilotphase einbringen möchten, schreiben Sie uns gern direkt eine
+       kurze Nachricht an
+       <a href="mailto:Matthias.Roettgers@kolifox.de?subject=KoliFoX%20f%C3%BCr%20unsere%20Praxis">Matthias.Roettgers@kolifox.de</a>
+       — wir melden uns zeitnah mit einem Termin für ein kurzes Vorstellungsgespräch.</p>
+    <button type="button" class="btn btn-primary testmodal-zu">Alles klar</button>
   </div>
 </div>
 

@@ -1,6 +1,6 @@
 // ---- Login-Knoepfe: Schalter fuer die Pilotphase ----
 // LOGIN_LINKS_AKTIV = false (jetzt): Alle Knoepfe zu App und Cockpit-Login fuehren NICHT zum Login, sondern
-// zeigen den Hinweis "Testversion" (#testversion). Nach "Verstanden" bleibt man auf der Seite.
+// zeigen ein Hinweisfenster (#testversion, Patienten- oder Praxen-Fassung). Nach "Alles klar" bleibt man auf der Seite.
 // LOGIN_LINKS_AKTIV = true (Pilotstart): nur diese Zeile auf true stellen, dann gehen alle Knoepfe wieder
 // zum Login. Die Ziele stehen in data-login an den Knoepfen (index.html) und in der Umschaltung unten.
 var LOGIN_LINKS_AKTIV = false;
@@ -10,12 +10,27 @@ window.kfLoginZiel = function (el, url) {
 };
 (function () {
   var modal = document.getElementById('testversion');
-  var zu = document.getElementById('testversion-zu');
-  if (!modal || !zu) return;
+  if (!modal) return;
+  var karten = modal.querySelectorAll('.testmodal-karte');
   var ausloeser = null;
   document.querySelectorAll('a[data-login]').forEach(function (a) {
     window.kfLoginZiel(a, a.getAttribute('data-login'));
   });
+  // Welche Fassung? Knoepfe zum Cockpit-Login -> Praxen-Fenster, alle anderen -> Patienten-Fenster.
+  function oeffnen(a) {
+    var fuer = (a.getAttribute('data-login') || '').indexOf('cockpit') > -1 ? 'praxen' : 'patienten';
+    var aktiv = null;
+    karten.forEach(function (k) {
+      var an = k.getAttribute('data-fuer') === fuer;
+      k.hidden = !an;
+      if (an) aktiv = k;
+    });
+    modal.setAttribute('aria-labelledby', aktiv.querySelector('h2').id);
+    ausloeser = a;
+    modal.hidden = false;
+    document.body.classList.add('modal-offen');
+    aktiv.querySelector('.testmodal-zu').focus();
+  }
   function schliessen() {
     modal.hidden = true;
     document.body.classList.remove('modal-offen');
@@ -25,16 +40,20 @@ window.kfLoginZiel = function (el, url) {
     var a = e.target.closest ? e.target.closest('a[data-login]') : null;
     if (!a || LOGIN_LINKS_AKTIV) return;
     e.preventDefault();
-    ausloeser = a;
-    modal.hidden = false;
-    document.body.classList.add('modal-offen');
-    zu.focus();
+    oeffnen(a);
   });
-  zu.addEventListener('click', schliessen);
+  modal.querySelectorAll('.testmodal-zu').forEach(function (b) { b.addEventListener('click', schliessen); });
   document.addEventListener('keydown', function (e) {
     if (modal.hidden) return;
-    if (e.key === 'Escape') schliessen();
-    else if (e.key === 'Tab') { e.preventDefault(); zu.focus(); } // einziger Bedienpunkt im Fenster
+    if (e.key === 'Escape') { schliessen(); return; }
+    if (e.key !== 'Tab') return;
+    // Tabulator bleibt im Fenster (Mail-Link und Knopf)
+    var aktiv = modal.querySelector('.testmodal-karte:not([hidden])');
+    var els = aktiv.querySelectorAll('a[href], button');
+    var erst = els[0], letzt = els[els.length - 1];
+    if (e.shiftKey && document.activeElement === erst) { e.preventDefault(); letzt.focus(); }
+    else if (!e.shiftKey && document.activeElement === letzt) { e.preventDefault(); erst.focus(); }
+    else if (!modal.contains(document.activeElement)) { e.preventDefault(); erst.focus(); }
   });
 })();
 
