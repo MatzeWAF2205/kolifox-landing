@@ -536,6 +536,8 @@ section { padding: 56px 0; }
 /* Platzhalter, bis ein passendes Icon da ist (Karten "Fertiger AV-Vertrag" und "Zwei-Faktor-Anmeldung"):
    haelt die Hoehe, damit die Ueberschriften in der Reihe auf einer Linie bleiben. */
 .feat-icon-platz { display: block; width: 46px; height: 46px; margin-bottom: 14px; }
+/* breites Icon (Arzt + Technik): gleiche Hoehe, Breite folgt dem Seitenverhaeltnis */
+.feat-icon.feat-icon-breit { width: auto; height: 46px; max-width: 100px; object-position: left center; }
 .feat h3 { font-size: 18px; margin: 0 0 8px; letter-spacing: -.01em; }
 .feat p { margin: 0; color: var(--muted); font-size: 15px; }
 .feat .tag {
