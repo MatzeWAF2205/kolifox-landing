@@ -91,8 +91,9 @@
 
   // Je Ansicht: Ueberschrift, Bild und die Erklaer-Fahnen.
   // "y" = Hoehe der Fahne in Prozent der HANDYhoehe. Umrechnung von einer Stelle
-  // im Screenshot: y = (34 + 565 * (0,208 + anteil_im_bild * 0,692)) / 621 * 100
-  // (34 px Gehaeuserand oben, 565 px Bildschirm, Einblendbereich ab 20,8 %).
+  // im Screenshot: y = (27 + 1235 * (0,208 + anteil_im_bild * 0,692)) / 1293 * 100
+  // (27 px Gehaeuserand oben, 1235 px Bildschirm, Einblendbereich ab 20,8 %; Masse am Handy-Rahmenbild
+  // 691x1293, seit 23.10.2026 — vorher 34/565/621 am CSS-Gehaeuse).
   // Zum Feinjustieren genuegt es, die Zahl hier zu aendern.
   const screens = [
     // Auf dem Hauptscreen stehen die Kacheln aus dem One-Pager statt der Fahnen
@@ -102,49 +103,49 @@
     // der Knoepfe im Handy.
     { datei: '01-start.webp', titel: 'KoliFoX-Hauptscreen', alt: 'Startansicht der KoliFoX-App mit Suche, Dringender Anfrage, AU-Anfrage, Überweisungs-Anfrage und Meldungen für den Kreis',
       fahnen: [
-        { seite: 'rechts', y: 21, kachel: 'kacheln/suche.webp',
+        { seite: 'rechts', y: 18.4, kachel: 'kacheln/suche.webp',
           text: 'Suche. KI-Beschwerde-Check: Wenn deine Beschwerden noch unspezifisch sind, hilft dir die KI bei der Auswahl des richtigen Fachbereichs. Finde deine Apotheke bei über 17.000 Apotheken. Finde deine Praxis unter mehr als 58.000 gelisteten Ärzten.' },
-        { seite: 'links',  y: 29, kachel: 'kacheln/akut.webp',
+        { seite: 'links',  y: 26.8, kachel: 'kacheln/akut.webp',
           text: 'Akutfall. Bekomme einfach und schnell einen Termin beim Arzt – unkompliziert bei Beschwerden.' },
-        { seite: 'rechts', y: 55.5, kachel: 'kacheln/au.webp',
+        { seite: 'rechts', y: 54.6, kachel: 'kacheln/au.webp',
           text: 'Arbeitsunfähigkeit. Erhalte schnell einen Termin bei Arbeitsunfähigkeit.' },
-        { seite: 'links',  y: 61, kachel: 'kacheln/ueberweisung.webp',
+        { seite: 'links',  y: 60.4, kachel: 'kacheln/ueberweisung.webp',
           text: 'Überweisung. Bekomme schnell einen Folgetermin im Rahmen einer Überweisung. Anfrage an passende Praxen im relevanten Fachbereich.' },
-        { seite: 'rechts', y: 81, kachel: 'kacheln/meldungen.webp',
+        { seite: 'rechts', y: 81.4, kachel: 'kacheln/meldungen.webp',
           text: 'Meldungen aus deiner Region. Erhalte gesundheitsrelevante Meldungen wie UV-Meldungen, Pollen, Hitze, RKI usw.' },
       ] },
     { datei: '02-suchen.webp', titel: 'KoliFoX-Suche', alt: 'Suchen-Menü mit Beschwerden-Check, Arzt- und Apothekensuche',
       fahnen: [
-        { seite: 'rechts', y: 41, icon: 'icons/icon-ki.png',
+        { seite: 'rechts', y: 39.4, icon: 'icons/icon-ki.png',
           text: 'KI-Check: Welcher Facharzt passt?' },
-        { seite: 'links',  y: 50, icon: 'icons/icon-arzt.png',
+        { seite: 'links',  y: 48.8, icon: 'icons/icon-arzt.png',
           text: 'Arzt in deiner Nähe (GPS)' },
-        { seite: 'rechts', y: 57, icon: 'icons/icon-apotheke.png',
+        { seite: 'rechts', y: 56.2, icon: 'icons/icon-apotheke.png',
           text: 'Apotheke in deiner Nähe (GPS)' },
       ] },
     { datei: '03-dringend.webp', titel: 'Dringende Anfrage', alt: 'Dringende Anfrage mit Regionsauswahl',
       fahnen: [
-        { seite: 'links',  y: 38, text: 'Region wählen' },
-        { seite: 'rechts', y: 66, text: 'Ausfüllen & Absenden – ohne Anrufen' },
+        { seite: 'links',  y: 36.2, text: 'Region wählen' },
+        { seite: 'rechts', y: 65.6, text: 'Ausfüllen & Absenden – ohne Anrufen' },
         { seite: 'links',  y: 74, text: 'Wird automatisch gelöscht', leise: true },
       ] },
     { datei: '04-anfrage-laeuft.webp', titel: 'Anfrage läuft', alt: 'Abgeschickte Anfrage an mehrere Praxen',
       fahnen: [
         // Hoehen von Matthias am Bild abgenommen: die rote Zeile "Bitte bleiben
         // Sie erreichbar!" liegt bei 63 %, der blaue Weiterleitungs-Hinweis bei 81 %.
-        { seite: 'rechts', y: 63, text: 'Bitte erreichbar bleiben' },
-        { seite: 'links',  y: 81, text: 'Deine Anfrage ist bei den Praxen' },
+        { seite: 'rechts', y: 62.5, text: 'Bitte erreichbar bleiben' },
+        { seite: 'links',  y: 81.4, text: 'Deine Anfrage ist bei den Praxen' },
       ] },
     // Verfalls-Anzeige, Protokoll und die Hinweise stehen erst in dieser Ansicht
     { datei: '05-anfrage-detail.webp', titel: 'Weitergeleitet', alt: 'Weitergeleitete Anfrage mit Protokoll',
       fahnen: [
-        { seite: 'links',  y: 43, text: 'Kann die erste Praxis nicht, geht es automatisch weiter' },
+        { seite: 'links',  y: 41.5, text: 'Kann die erste Praxis nicht, geht es automatisch weiter' },
         // Verfalls-Pille und Protokoll-Knopf stehen in derselben Zeile, deshalb
         // eine gemeinsame Fahne mit zwei Zeilen statt zweier Fahnen uebereinander.
-        { seite: 'rechts', y: 52, zeilen: [
+        { seite: 'rechts', y: 50.9, zeilen: [
             'Lade dein Protokoll herunter',
             'Ohne Antwort verfällt die Anfrage automatisch' ] },
-        { seite: 'rechts', y: 66, text: 'Unterlagen vorab vorbereiten' },
+        { seite: 'rechts', y: 65.6, text: 'Unterlagen vorab vorbereiten' },
       ] },
   ];
 

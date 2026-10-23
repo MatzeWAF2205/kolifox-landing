@@ -88,39 +88,37 @@ html { scroll-padding-top: 120px; }
 .hero-split { display: grid; grid-template-columns: 1.15fr .85fr; gap: 48px; align-items: center; }
 .hero-split .hero-text { min-width: 0; }
 
-/* Handy-Gehaeuse: oben breiterer Rand fuer die Hoermuschel */
+/* Handy-Gehaeuse: freigestelltes Bild (assets/screens/handy-rahmen.webp, 691x1293), liegt als oberste
+   Ebene ueber dem Bildschirm; die Bildschirmflaeche im Bild ist transparent. Masse am Bild gemessen:
+   Loch x=34 y=27 b=624 h=1235 (Rand links/rechts 34, oben 27, unten 31 px). */
 .phone {
-  /* 255 statt 300 px — auf Matthias' Wunsch rund 15 % kleiner, damit Text,
-     Handy und Fahnen nebeneinander Platz haben. */
-  justify-self: center; position: relative; width: 255px; max-width: 100%;
-  border-radius: 38px; padding: 29px 9px 19px; box-sizing: content-box;
-  background: linear-gradient(155deg, #3a4048 0%, #22262c 38%, #14171b 100%);
-  box-shadow:
-    0 0 0 2px #0b0d10,                       /* harte Gehaeusekante */
-    inset 0 1px 1px rgba(255,255,255,.22),   /* Lichtkante oben */
-    0 34px 64px -26px rgba(16,24,40,.6), 0 2px 8px rgba(16,24,40,.25);
+  justify-self: center; position: relative; width: 273px; max-width: 100%;
+  aspect-ratio: 691 / 1293; border-radius: 12% / 6.4%;
+  box-shadow: 0 34px 50px -26px rgba(16,24,40,.55), 0 2px 8px rgba(16,24,40,.2);
 }
-/* Hoermuschel-Schlitz */
-.phone::before {
-  content: ""; position: absolute; top: 15px; left: 50%; transform: translateX(-50%);
-  width: 74px; height: 6px; border-radius: 99px; z-index: 4;
-  background: #06080a; box-shadow: inset 0 1px 1px rgba(0,0,0,.9);
+.phone > img.rahmen {
+  position: absolute; inset: 0; width: 100%; height: 100%; z-index: 10; pointer-events: none;
 }
-/* Kamera-Punkt neben der Hoermuschel */
-.phone::after {
-  content: ""; position: absolute; top: 14px; left: calc(50% + 52px);
-  width: 8px; height: 8px; border-radius: 50%; z-index: 4;
-  background: radial-gradient(circle at 35% 30%, #2b3a4a, #05070a 70%);
-  box-shadow: 0 0 0 1px rgba(255,255,255,.07);
-}
-.phone > img { display: block; width: 100%; border-radius: 24px; }
 
-/* Der Bildschirm: Matthias' Grundframe, darin der wechselnde Bereich */
-.screen { position: relative; border-radius: 24px; overflow: hidden; line-height: 0; }
+/* Der Bildschirm: Matthias' Grundframe (600x1129), darin der wechselnde Bereich.
+   Er fuellt die Hoehe des Lochs; weil das Loch etwas schmaler ist, ragt er links und rechts je rund
+   2,3 % der Handybreite unter den Rahmen (dort liegt das Gehaeuse darueber). Alle Prozentwerte der
+   Kinder (Einblend-Bereich, Kolibris) beziehen sich weiter auf das Grundframe und bleiben gleich. */
+/* .loch = genau die transparente Bildschirmflaeche des Rahmens (x 4,92 %, y 2,09 %, 90,3 x 95,5 %),
+   schneidet den ueberstehenden Bildschirm ab. Der Eckenradius ist bewusst etwas kleiner als der des Rahmens:
+   was dadurch ueberstuende, liegt unter dem undurchsichtigen Gehaeuse. */
+.loch {
+  position: absolute; left: 4.92%; top: 2.09%; width: 90.3%; height: 95.51%;
+  overflow: hidden; border-radius: 7% / 3.6%;
+}
+.screen {
+  position: absolute; top: 0; height: 100%; aspect-ratio: 600 / 1129;
+  left: 50%; transform: translateX(-50%); line-height: 0;
+}
 /* Stapelung im Bildschirm, von hinten nach vorn:
    1 Grundframe (Kopf + Fussleiste), 2 wechselndes Bild, 5 Kolibris.
    Die Kolibris sitzen an der Fussleiste und muessen immer obenauf liegen. */
-.screen > img.frame { display: block; width: 100%; position: relative; z-index: 1; }
+.screen > img.frame { display: block; width: 100%; height: 100%; position: relative; z-index: 1; }
 
 /* Einblend-Bereich — am Grundframe gemessen (600x1129): blau ab x=27, davor ein
    4 px dunkler Rahmen (x 23..26). Der Bereich liegt bewusst 4 px weiter aussen,
