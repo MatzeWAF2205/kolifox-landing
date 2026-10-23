@@ -125,9 +125,9 @@
       ] },
     { datei: '03-dringend.webp', titel: 'Dringende Anfrage', alt: 'Dringende Anfrage mit Regionsauswahl',
       fahnen: [
-        { seite: 'links',  y: 36.2, text: 'Region wählen' },
-        { seite: 'rechts', y: 65.6, text: 'Ausfüllen & Absenden – ohne Anrufen' },
-        { seite: 'links',  y: 74, text: 'Wird automatisch gelöscht', leise: true },
+        { seite: 'links',  y: 47.1, text: 'Region wählen' },
+        { seite: 'rechts', y: 67.6, text: 'Ausfüllen & Absenden – ohne Anrufen' },
+        { seite: 'links',  y: 75.1, text: 'Wird automatisch gelöscht', leise: true },
       ] },
     { datei: '04-anfrage-laeuft.webp', titel: 'Anfrage läuft', alt: 'Abgeschickte Anfrage an mehrere Praxen',
       fahnen: [
