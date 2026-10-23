@@ -145,7 +145,7 @@
         { seite: 'rechts', y: 50.9, zeilen: [
             'Lade dein Protokoll herunter',
             'Ohne Antwort verfällt die Anfrage automatisch' ] },
-        { seite: 'rechts', y: 65.6, text: 'Unterlagen vorab vorbereiten' },
+        { seite: 'rechts', y: 76.9, text: 'Unterlagen vorab vorbereiten' },
       ] },
   ];
 
